@@ -97,6 +97,68 @@ body {
   background: #64748b;
 }
 
+/* -------- Boiler repair hero animation -------- */
+.boiler-cover {
+  animation: boilerCover 8s ease-in-out infinite;
+  transform-origin: 200px 250px;
+}
+@keyframes boilerCover {
+  0%, 14%   { opacity: 1; transform: translateY(0); }
+  22%, 68%  { opacity: 0; transform: translateY(-16px); }
+  78%, 100% { opacity: 1; transform: translateY(0); }
+}
+
+.boiler-internals { animation: boilerInternals 8s ease-in-out infinite; }
+@keyframes boilerInternals {
+  0%, 16%   { opacity: 0; }
+  24%, 66%  { opacity: 1; }
+  74%, 100% { opacity: 0; }
+}
+
+.boiler-pump { animation: boilerPump 8s ease-in-out infinite; transform-origin: 160px 212px; }
+@keyframes boilerPump {
+  0%, 26%   { transform: scale(1); filter: drop-shadow(0 0 0 rgba(45, 212, 191, 0)); }
+  32%       { transform: scale(1.18); filter: drop-shadow(0 0 9px rgba(45, 212, 191, 0.9)); }
+  38%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(45, 212, 191, 0)); }
+}
+
+.boiler-pcb { animation: boilerPcb 8s ease-in-out infinite; transform-origin: 240px 212px; }
+@keyframes boilerPcb {
+  0%, 40%   { filter: drop-shadow(0 0 0 rgba(255, 106, 61, 0)); }
+  48%       { filter: drop-shadow(0 0 10px rgba(255, 106, 61, 0.95)); }
+  56%, 100% { filter: drop-shadow(0 0 0 rgba(255, 106, 61, 0)); }
+}
+
+.boiler-check { animation: boilerCheck 8s ease-in-out infinite; transform-origin: 276px 144px; }
+@keyframes boilerCheck {
+  0%, 78% { opacity: 0; transform: scale(0.5); }
+  84%     { opacity: 1; transform: scale(1.2); }
+  92%     { opacity: 1; transform: scale(1); }
+  97%     { opacity: 1; transform: scale(1); }
+  100%    { opacity: 0; transform: scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boiler-cover, .boiler-internals, .boiler-pump, .boiler-pcb, .boiler-check {
+    animation: none !important;
+  }
+  .boiler-internals { opacity: 0; }
+  .boiler-check { opacity: 0; }
+}
+
+/* -------- Service category tabs (Котлы / Сантехника) -------- */
+.service-tab {
+  border-color: #e2e8f0;
+  color: #475569;
+  background: #fff;
+}
+
+.service-tab.active {
+  background: #0b1c33;
+  border-color: #0b1c33;
+  color: #fff;
+}
+
 /* -------- Focus visibility for accessibility -------- */
 a:focus-visible,
 button:focus-visible,

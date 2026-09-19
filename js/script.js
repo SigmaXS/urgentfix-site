@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initSmoothAnchors();
   initPriceTabs();
+  initServiceTabs();
   initModal();
   initScrollReveal();
   initStickyCta();
@@ -101,6 +102,24 @@ function initPriceTabs() {
 
       tabs.forEach((t) => t.classList.toggle('active', t === tab));
       panels.forEach((p) => p.classList.toggle('hidden', p.dataset.panel !== target));
+    });
+  });
+}
+
+/* ---------------------------------------------------------
+   Вкладки услуг (Котлы / Сантехника)
+--------------------------------------------------------- */
+function initServiceTabs() {
+  const tabs = document.querySelectorAll('.service-tab');
+  const panels = document.querySelectorAll('.service-panel');
+  if (!tabs.length) return;
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.serviceTab;
+
+      tabs.forEach((t) => t.classList.toggle('active', t === tab));
+      panels.forEach((p) => p.classList.toggle('hidden', p.dataset.servicePanel !== target));
     });
   });
 }
@@ -254,8 +273,8 @@ const I18N = {
     'nav.contacts': 'Контакты',
     'nav.emergency': 'Срочный вызов',
     'hero.badge': 'Мастер на связи прямо сейчас',
-    'hero.title': 'Срочные и плановые сантехнические работы в Кишинёве и пригороде 24/7',
-    'hero.subtitle': 'Устранение протечек, ремонт котлов, установка душевых кабин и прочистка канализации с гарантией. Выезд мастера за 30–45 минут в любую точку города.',
+    'hero.title': 'Срочный ремонт <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua-400 to-aqua-500">газовых котлов</span> и сантехники в Кишинёве 24/7',
+    'hero.subtitle': 'Диагностика, чистка и ремонт котлов любых марок, а также мелкие сантехнические работы с гарантией. Выезд мастера за 30–45 минут в любую точку города.',
     'hero.cta1': 'Вызвать мастера срочно',
     'hero.cta2': 'Рассчитать стоимость',
     'hero.trust1': 'Гарантия 12 мес.',
@@ -276,42 +295,42 @@ const I18N = {
     'why.card4title': 'Фиксированные цены',
     'why.card4text': 'Озвучиваем стоимость заранее — никаких скрытых доплат по факту.',
     'services.eyebrow': 'Наши услуги',
-    'services.title': 'Полный спектр сантехнических работ',
-    'services.subtitle': 'От мелкого ремонта до капитальной замены систем — выполняем под ключ.',
-    'services.card1title': 'Отопление и котлы',
-    'services.card1li1': 'Монтаж систем отопления «под ключ»',
-    'services.card1li2': 'Чистка теплообменников',
-    'services.card1li3': 'Ремонт газовых и электрических котлов',
-    'services.card2title': 'Сантехника под ключ',
-    'services.card2li1': 'Установка унитазов и раковин',
-    'services.card2li2': 'Смена стояков и труб PPR / металлопласт',
-    'services.card2li3': 'Разводка водоснабжения',
-    'services.card3title': 'Душевые кабины и ванные',
-    'services.card3li1': 'Монтаж и подключение душевых кабин',
-    'services.card3li2': 'Герметизация швов',
-    'services.card3li3': 'Подключение гидромассажа',
-    'services.card4title': 'Канализация',
-    'services.card4li1': 'Устранение засоров механическим способом',
-    'services.card4li2': 'Гидродинамическая прочистка',
-    'services.card4li3': 'Замена канализационных труб',
-    'services.card5title': '«Муж на час»',
-    'services.card5li1': 'Мелкий бытовой ремонт',
-    'services.card5li2': 'Сборка и навеска мебели, сантехники',
-    'services.card5li3': 'Устранение мелких протечек',
-    'services.ctaTitle': 'Не нашли нужную услугу?',
-    'services.ctaText': 'Опишите проблему — подберём решение и назовём цену за 5 минут.',
-    'services.ctaBtn': 'Оставить заявку',
+    'services.title': 'Ремонт котлов и сантехника под ключ',
+    'services.subtitle': 'Главное направление — газовые котлы. Плюс все мелкие сантехнические работы по дому.',
+    'services.tabBoilers': 'Котлы',
+    'services.tabPlumbing': 'Сантехника',
+    'services.boilersTitle': 'Решаем любые проблемы с газовым котлом',
+    'services.boilersSubtitle': 'Независимо от марки и модели. Диагностика, чистка, ремонт и профилактика.',
+    'services.b1': 'Котёл не запускается или запускается с трудом',
+    'services.b2': 'Ошибка давления, пламя не удерживается',
+    'services.b3': 'Горячая вода с задержкой или без давления',
+    'services.b4': 'Профилактика и профессиональная чистка',
+    'services.b5': 'Котёл не греет воду, радиаторы холодные',
+    'services.b6': 'Посторонние звуки во время работы',
+    'services.b7': 'Утечки и проблемы с давлением в системе',
+    'services.b8': 'Ремонт и обслуживание всех марок и моделей',
+    'services.boilersCta': 'Вызвать мастера по котлу',
+    'services.plumbingTitle': 'Быстро решаем сантехнические задачи',
+    'services.plumbingSubtitle': 'В ванной, на кухне или в любой другой части дома — аккуратно и с гарантией.',
+    'services.p1': 'Ремонт и замена кранов, смесителей',
+    'services.p2': 'Капающий кран, протечки под раковиной',
+    'services.p3': 'Замена унитаза, смесителя, душевой кабины',
+    'services.p4': 'Протечки в трубах',
+    'services.p5': 'Низкое давление воды в системе',
+    'services.p6': 'Установка бойлера, фильтра, гибких подводок',
+    'services.p7': 'Мелкий ремонт по дому («муж на час»)',
+    'services.plumbingCta': 'Вызвать мастера',
     'prices.eyebrow': 'Прайс-лист',
     'prices.title': 'Ориентировочные цены на услуги',
     'prices.subtitle': 'Точная стоимость озвучивается мастером на месте после осмотра.',
-    'prices.tab1': 'Отопление',
+    'prices.tab1': 'Котлы',
     'prices.tab2': 'Сантехника',
     'prices.tab3': 'Душевые кабины',
-    'prices.tab4': 'Канализация',
     'prices.h1': 'Диагностика котла',
     'prices.h2': 'Установка бойлера',
     'prices.h3': 'Чистка теплообменника',
     'prices.h4': 'Монтаж системы отопления (за точку)',
+    'prices.h5': 'Ремонт платы управления',
     'prices.s1': 'Установка унитаза',
     'prices.s2': 'Установка раковины / смесителя',
     'prices.s3': 'Замена труб (за метр)',
@@ -319,9 +338,6 @@ const I18N = {
     'prices.sh1': 'Монтаж душевой кабины',
     'prices.sh2': 'Герметизация швов',
     'prices.sh3': 'Подключение гидромассажа',
-    'prices.sw1': 'Прочистка канализации (механически)',
-    'prices.sw2': 'Гидродинамическая прочистка',
-    'prices.sw3': 'Замена канализационных труб (за метр)',
     'prices.note': '* Итоговая стоимость зависит от объёма работ и материалов. Выезд и диагностика — бесплатно при заказе работ.',
     'calc.eyebrow': 'Быстрая заявка',
     'calc.title': 'Опишите проблему — назовём цену за 5 минут',
@@ -330,13 +346,13 @@ const I18N = {
     'calc.namePlaceholder': 'Как к вам обращаться?',
     'calc.phoneLabel': 'Телефон',
     'calc.serviceLabel': 'Тип услуги',
-    'calc.opt1': 'Аварийный выезд (протечка, засор)',
-    'calc.opt2': 'Отопление / котёл',
-    'calc.opt3': 'Установка сантехники',
+    'calc.opt1': 'Аварийный выезд (протечка)',
+    'calc.opt2': 'Ремонт / чистка котла',
+    'calc.opt3': 'Сантехнические работы',
     'calc.opt4': 'Душевая кабина',
     'calc.opt5': 'Другое / не знаю',
     'calc.descLabel': 'Опишите проблему',
-    'calc.descPlaceholder': 'Например: течёт кран на кухне, нужно заменить прокладку...',
+    'calc.descPlaceholder': 'Например: котёл не держит давление, нужна диагностика...',
     'calc.submit': 'Отправить заявку',
     'calc.privacy': 'Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.',
     'reviews.eyebrow': 'Отзывы клиентов',
@@ -382,8 +398,8 @@ const I18N = {
     'nav.contacts': 'Contacte',
     'nav.emergency': 'Apel urgent',
     'hero.badge': 'Meșterul este disponibil acum',
-    'hero.title': 'Lucrări sanitare urgente și planificate în Chișinău și suburbii 24/7',
-    'hero.subtitle': 'Eliminarea scurgerilor, reparația centralelor, montarea cabinelor de duș și curățarea canalizării cu garanție. Deplasarea meșterului în 30–45 minute.',
+    'hero.title': 'Reparație urgentă a <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua-400 to-aqua-500">centralelor pe gaz</span> și instalații sanitare în Chișinău 24/7',
+    'hero.subtitle': 'Diagnosticare, curățare și reparația centralelor de orice marcă, plus lucrări sanitare mici, cu garanție. Deplasarea meșterului în 30–45 minute.',
     'hero.cta1': 'Cheamă meșterul urgent',
     'hero.cta2': 'Calculează costul',
     'hero.trust1': 'Garanție 12 luni',
@@ -404,42 +420,42 @@ const I18N = {
     'why.card4title': 'Prețuri fixe',
     'why.card4text': 'Anunțăm costul în avans — fără taxe ascunse ulterior.',
     'services.eyebrow': 'Serviciile noastre',
-    'services.title': 'Gamă completă de lucrări sanitare',
-    'services.subtitle': 'De la reparații mici până la înlocuirea completă a sistemelor — la cheie.',
-    'services.card1title': 'Încălzire și centrale',
-    'services.card1li1': 'Montarea sistemelor de încălzire „la cheie”',
-    'services.card1li2': 'Curățarea schimbătoarelor de căldură',
-    'services.card1li3': 'Reparația centralelor pe gaz și electrice',
-    'services.card2title': 'Instalații sanitare la cheie',
-    'services.card2li1': 'Montarea vaselor de toaletă și chiuvetelor',
-    'services.card2li2': 'Înlocuirea coloanelor și țevilor PPR / metal-plastic',
-    'services.card2li3': 'Distribuția rețelei de apă',
-    'services.card3title': 'Cabine de duș și băi',
-    'services.card3li1': 'Montarea și conectarea cabinelor de duș',
-    'services.card3li2': 'Etanșarea rosturilor',
-    'services.card3li3': 'Conectarea sistemelor de hidromasaj',
-    'services.card4title': 'Canalizare',
-    'services.card4li1': 'Eliminarea înfundărilor mecanic',
-    'services.card4li2': 'Curățare hidrodinamică',
-    'services.card4li3': 'Înlocuirea țevilor de canalizare',
-    'services.card5title': '„Bărbat la oră”',
-    'services.card5li1': 'Reparații mici casnice',
-    'services.card5li2': 'Asamblare și montare mobilier, sanitare',
-    'services.card5li3': 'Eliminarea scurgerilor mici',
-    'services.ctaTitle': 'Nu ați găsit serviciul dorit?',
-    'services.ctaText': 'Descrieți problema — vom găsi soluția și vom anunța prețul în 5 minute.',
-    'services.ctaBtn': 'Trimite cererea',
+    'services.title': 'Reparația centralelor și instalații sanitare la cheie',
+    'services.subtitle': 'Direcția principală — centrale pe gaz. Plus toate lucrările sanitare mici din casă.',
+    'services.tabBoilers': 'Centrale',
+    'services.tabPlumbing': 'Sanitare',
+    'services.boilersTitle': 'Rezolvăm orice problemă cu centrala pe gaz',
+    'services.boilersSubtitle': 'Indiferent de marcă și model. Diagnosticare, curățare, reparație și profilaxie.',
+    'services.b1': 'Centrala nu pornește sau pornește greu',
+    'services.b2': 'Eroare de presiune, flacăra nu se menține',
+    'services.b3': 'Apă caldă cu întârziere sau fără presiune',
+    'services.b4': 'Este necesară profilaxia sau curățarea profesională',
+    'services.b5': 'Centrala nu încălzește apa, radiatoarele rămân reci',
+    'services.b6': 'Zgomote străine în timpul funcționării',
+    'services.b7': 'Scurgeri și probleme de presiune în sistem',
+    'services.b8': 'Reparație și mentenanță pentru toate mărcile și modelele',
+    'services.boilersCta': 'Cheamă meșterul pentru centrală',
+    'services.plumbingTitle': 'Rezolvăm rapid sarcinile sanitare',
+    'services.plumbingSubtitle': 'În baie, bucătărie sau orice altă parte a casei — cu grijă și garanție.',
+    'services.p1': 'Reparație și înlocuire robinete, baterii',
+    'services.p2': 'Robinet care picură, scurgeri sub chiuvetă',
+    'services.p3': 'Înlocuirea vasului de toaletă, bateriei, cabinei de duș',
+    'services.p4': 'Scurgeri în țevi',
+    'services.p5': 'Presiune scăzută a apei în sistem',
+    'services.p6': 'Montarea boilerului, filtrului, racordurilor flexibile',
+    'services.p7': 'Reparații mici casnice („bărbat la oră”)',
+    'services.plumbingCta': 'Cheamă meșterul',
     'prices.eyebrow': 'Lista de prețuri',
     'prices.title': 'Prețuri orientative pentru servicii',
     'prices.subtitle': 'Costul exact este anunțat de meșter la fața locului după inspecție.',
-    'prices.tab1': 'Încălzire',
+    'prices.tab1': 'Centrale',
     'prices.tab2': 'Sanitare',
     'prices.tab3': 'Cabine de duș',
-    'prices.tab4': 'Canalizare',
     'prices.h1': 'Diagnosticarea centralei',
     'prices.h2': 'Montarea boilerului',
     'prices.h3': 'Curățarea schimbătorului de căldură',
     'prices.h4': 'Montarea sistemului de încălzire (per punct)',
+    'prices.h5': 'Reparația plăcii de comandă',
     'prices.s1': 'Montarea vasului de toaletă',
     'prices.s2': 'Montarea chiuvetei / bateriei',
     'prices.s3': 'Înlocuirea țevilor (per metru)',
@@ -447,9 +463,6 @@ const I18N = {
     'prices.sh1': 'Montarea cabinei de duș',
     'prices.sh2': 'Etanșarea rosturilor',
     'prices.sh3': 'Conectarea hidromasajului',
-    'prices.sw1': 'Curățarea canalizării (mecanic)',
-    'prices.sw2': 'Curățare hidrodinamică',
-    'prices.sw3': 'Înlocuirea țevilor de canalizare (per metru)',
     'prices.note': '* Costul final depinde de volumul lucrărilor și materiale. Deplasarea și diagnosticarea sunt gratuite la comandarea lucrărilor.',
     'calc.eyebrow': 'Cerere rapidă',
     'calc.title': 'Descrieți problema — anunțăm prețul în 5 minute',
@@ -458,13 +471,13 @@ const I18N = {
     'calc.namePlaceholder': 'Cum să vă adresăm?',
     'calc.phoneLabel': 'Telefon',
     'calc.serviceLabel': 'Tipul serviciului',
-    'calc.opt1': 'Deplasare de urgență (scurgere, înfundare)',
-    'calc.opt2': 'Încălzire / centrală',
-    'calc.opt3': 'Montare instalații sanitare',
+    'calc.opt1': 'Deplasare de urgență (scurgere)',
+    'calc.opt2': 'Reparație / curățare centrală',
+    'calc.opt3': 'Lucrări sanitare',
     'calc.opt4': 'Cabină de duș',
     'calc.opt5': 'Altceva / nu știu',
     'calc.descLabel': 'Descrieți problema',
-    'calc.descPlaceholder': 'De exemplu: curge robinetul la bucătărie, trebuie schimbată garnitura...',
+    'calc.descPlaceholder': 'De exemplu: centrala nu ține presiunea, e nevoie de diagnosticare...',
     'calc.submit': 'Trimite cererea',
     'calc.privacy': 'Apăsând butonul, sunteți de acord cu prelucrarea datelor personale.',
     'reviews.eyebrow': 'Recenziile clienților',
@@ -503,15 +516,27 @@ const I18N = {
   }
 };
 
+function detectLang() {
+  // Приоритет — язык, который пользователь выбрал вручную раньше
+  try {
+    const saved = localStorage.getItem('ms_lang');
+    if (saved === 'ru' || saved === 'ro') return saved;
+  } catch (e) {
+    /* localStorage unavailable — ignore */
+  }
+
+  // Иначе — по языку телефона/браузера: русский считаем "ru",
+  // всё остальное (ro, en и т.д.) по умолчанию открываем на румынском
+  const browserLangs = navigator.languages && navigator.languages.length
+    ? navigator.languages
+    : [navigator.language || navigator.userLanguage || ''];
+
+  const isRussian = browserLangs.some((l) => (l || '').toLowerCase().startsWith('ru'));
+  return isRussian ? 'ru' : 'ro';
+}
+
 function initLang() {
-  const saved = (() => {
-    try {
-      return localStorage.getItem('ms_lang');
-    } catch (e) {
-      return null;
-    }
-  })();
-  const lang = saved === 'ro' ? 'ro' : 'ru';
+  const lang = detectLang();
   applyLang(lang);
 
   document.querySelectorAll('.lang-btn').forEach((btn) => {

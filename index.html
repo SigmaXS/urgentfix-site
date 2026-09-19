@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>МастерСантехник — Сантехника и отопление под ключ в Кишиневе 24/7</title>
-<meta name="description" content="Аварийный выезд сантехника в Кишиневе за 30-45 минут. Ремонт котлов, устранение протечек, установка душевых кабин, прочистка канализации. Гарантия до 12 месяцев.">
+<title>МастерСантехник — Ремонт газовых котлов и сантехника в Кишиневе 24/7</title>
+<meta name="description" content="Срочный ремонт и чистка газовых котлов любых марок, а также мелкие сантехнические работы в Кишиневе. Выезд мастера за 30-45 минут. Гарантия до 12 месяцев.">
 
 <!-- Tailwind CSS via CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -155,13 +155,6 @@
 
 <!-- ======================= HERO ======================= -->
 <section id="hero" class="relative pt-32 pb-20 lg:pt-44 lg:pb-28 overflow-hidden bg-navy-950">
-  <!-- Фото мастера фоном — только на мобильных/планшетах (на десктопе фото показано отдельной карточкой справа) -->
-  <div class="absolute inset-0 lg:hidden">
-    <img src="img/master-hero.webp" alt="Мастер сантехник" class="w-full h-full object-cover object-[80%_8%]">
-    <div class="absolute inset-0 bg-gradient-to-b from-navy-950/25 via-navy-950/75 to-navy-950"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/25 to-navy-950/60"></div>
-  </div>
-
   <!-- background decoration -->
   <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(45,212,191,0.18),_transparent_55%)]"></div>
   <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(31,77,138,0.35),_transparent_55%)]"></div>
@@ -175,11 +168,11 @@
       </div>
 
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.08] tracking-tight" data-i18n="hero.title">
-        Срочные и плановые <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua-400 to-aqua-500">сантехнические работы</span> в Кишинёве и пригороде 24/7
+        Срочный ремонт <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua-400 to-aqua-500">газовых котлов</span> и сантехники в Кишинёве 24/7
       </h1>
 
       <p class="mt-6 text-lg text-slate-300 max-w-xl mx-auto lg:mx-0" data-i18n="hero.subtitle">
-        Устранение протечек, ремонт котлов, установка душевых кабин и прочистка канализации с гарантией. Выезд мастера за 30–45 минут в любую точку города.
+        Диагностика, чистка и ремонт котлов любых марок, а также мелкие сантехнические работы с гарантией. Выезд мастера за 30–45 минут в любую точку города.
       </p>
 
       <div class="mt-9 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
@@ -200,13 +193,10 @@
       </div>
     </div>
 
-    <div class="relative hidden lg:block" data-animate>
+    <div class="relative" data-animate>
       <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/40 aspect-[4/5] bg-gradient-to-br from-navy-800 to-navy-900">
-        <!-- ВРЕМЕННОЕ фото мастера — заменить на постоянное и удалить img ниже,
-             вернув div.data-animate-svg (SVG-иллюстрация) как было -->
-        <img src="img/master-hero.webp" alt="Мастер сантехник" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-t from-navy-950/40 via-transparent to-navy-950/10"></div>
-        <svg viewBox="0 0 400 500" class="w-full h-full hidden">
+        <!-- Анимация: котёл разбирается на диагностику/ремонт и собирается обратно -->
+        <svg viewBox="0 0 400 500" class="w-full h-full">
           <defs>
             <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#183c6c"/>
@@ -219,60 +209,66 @@
 
           <rect width="400" height="500" fill="url(#heroGrad)"/>
           <rect width="400" height="500" fill="url(#heroDots)"/>
-          <circle cx="200" cy="250" r="170" fill="#14b8a6" opacity="0.12"/>
+          <circle cx="200" cy="240" r="175" fill="#14b8a6" opacity="0.10"/>
 
-          <!-- schematic connector lines -->
-          <g stroke="#2dd4bf" stroke-width="1.5" opacity="0.35" fill="none">
-            <path d="M64 165 H100"/>
-            <path d="M300 165 H336"/>
-            <path d="M64 345 H100"/>
-            <path d="M300 345 H336"/>
-            <circle cx="64" cy="165" r="4" fill="#2dd4bf"/>
-            <circle cx="336" cy="165" r="4" fill="#2dd4bf"/>
-            <circle cx="64" cy="345" r="4" fill="#2dd4bf"/>
-            <circle cx="336" cy="345" r="4" fill="#2dd4bf"/>
-          </g>
+          <!-- крепление на стену -->
+          <rect x="150" y="110" width="100" height="10" rx="4" fill="#ffffff" opacity="0.12"/>
 
-          <!-- control panel -->
-          <rect x="100" y="110" width="200" height="280" rx="24" fill="#ffffff" opacity="0.06" stroke="#ffffff" stroke-opacity="0.14"/>
+          <!-- корпус котла (за внутренностями, под крышкой) -->
+          <rect x="110" y="120" width="180" height="260" rx="20" fill="#0b1c33"/>
 
-          <!-- pressure gauge -->
-          <g transform="translate(200,192)">
-            <circle r="52" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="3"/>
-            <circle r="52" fill="none" stroke="#2dd4bf" stroke-width="3" stroke-linecap="round" stroke-dasharray="230 327" transform="rotate(-90)"/>
-            <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="2">
-              <line x1="0" y1="-52" x2="0" y2="-43"/>
-              <line x1="45" y1="-26" x2="38" y2="-21"/>
-              <line x1="45" y1="26" x2="38" y2="21"/>
-              <line x1="0" y1="52" x2="0" y2="43"/>
-              <line x1="-45" y1="26" x2="-38" y2="21"/>
+          <!-- внутренности котла (видны, когда крышка снята) -->
+          <g class="boiler-internals">
+            <g class="boiler-pump" transform="translate(160,212)">
+              <circle r="27" fill="#0b1c33"/>
+              <circle r="27" fill="none" stroke="#2dd4bf" stroke-width="2.5"/>
+              <g stroke="#2dd4bf" stroke-width="2.4" stroke-linecap="round">
+                <line x1="0" y1="-16" x2="0" y2="16"/>
+                <line x1="-16" y1="0" x2="16" y2="0"/>
+                <line x1="-11" y1="-11" x2="11" y2="11"/>
+                <line x1="-11" y1="11" x2="11" y2="-11"/>
+              </g>
+              <circle r="6" fill="#2dd4bf"/>
             </g>
-            <line x1="0" y1="0" x2="18" y2="-30" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-            <circle r="6" fill="#ffffff"/>
-          </g>
-
-          <!-- readout bars -->
-          <g transform="translate(130,270)">
-            <rect width="140" height="12" rx="6" fill="#ffffff22"/>
-            <rect y="22" width="90" height="12" rx="6" fill="#ffffff22"/>
-          </g>
-
-          <!-- icon chips: wrench / drop / flame -->
-          <g transform="translate(140,332)">
-            <circle r="26" fill="#0d9488"/>
-            <g stroke="#ffffff" stroke-width="2.4" stroke-linecap="round">
-              <line x1="-9" y1="9" x2="9" y2="-9"/>
-              <circle cx="-11" cy="11" r="4" fill="none"/>
-              <circle cx="11" cy="-11" r="4" fill="none"/>
+            <g class="boiler-pcb" transform="translate(240,212)">
+              <rect x="-27" y="-21" width="54" height="42" rx="7" fill="#0b1c33"/>
+              <rect x="-27" y="-21" width="54" height="42" rx="7" fill="none" stroke="#ff6a3d" stroke-width="2"/>
+              <path d="M-17 -10 h11 v8 h11" fill="none" stroke="#ff6a3d" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M-17 5 h7" stroke="#ff6a3d" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="11" cy="8" r="3" fill="#ff6a3d"/>
+            </g>
+            <g transform="translate(200,272)">
+              <rect x="-46" y="-9" width="92" height="18" rx="9" fill="#0b1c33"/>
+              <g fill="#ff6a3d">
+                <path d="M-30 -2c1.6 2.1 2.6 3.2 2.6 4.7a2.6 2.6 0 1 1-5.2 0c0-.5.1-1 .4-1.5.1.7.8 1 .8 1s-.4-1.3.2-2.3c.3.4.4.9.4.9s.1-.9.8-1.8z"/>
+                <path d="M-3 -2c1.6 2.1 2.6 3.2 2.6 4.7a2.6 2.6 0 1 1-5.2 0c0-.5.1-1 .4-1.5.1.7.8 1 .8 1s-.4-1.3.2-2.3c.3.4.4.9.4.9s.1-.9.8-1.8z"/>
+                <path d="M24 -2c1.6 2.1 2.6 3.2 2.6 4.7a2.6 2.6 0 1 1-5.2 0c0-.5.1-1 .4-1.5.1.7.8 1 .8 1s-.4-1.3.2-2.3c.3.4.4.9.4.9s.1-.9.8-1.8z"/>
+              </g>
             </g>
           </g>
-          <g transform="translate(200,332)">
-            <circle r="26" fill="#ff6a3d"/>
-            <path d="M0 -11c3.5 4.5 6 8 6 11a6 6 0 1 1-12 0c0-3 2.5-6.5 6-11z" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linejoin="round"/>
+
+          <!-- крышка (снимается для диагностики и встаёт обратно) -->
+          <g class="boiler-cover">
+            <rect x="110" y="120" width="180" height="260" rx="20" fill="#e7edf5"/>
+            <rect x="140" y="150" width="120" height="46" rx="10" fill="#0b1c33"/>
+            <text x="200" y="180" text-anchor="middle" fill="#2dd4bf" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="700">62°C</text>
+            <circle cx="150" cy="216" r="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+            <circle cx="175" cy="216" r="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+            <circle cx="200" cy="216" r="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+            <circle cx="225" cy="216" r="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+            <circle cx="250" cy="216" r="7" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+            <rect x="160" y="242" width="80" height="6" rx="3" fill="#cbd5e1"/>
+            <rect x="170" y="256" width="60" height="6" rx="3" fill="#cbd5e1"/>
           </g>
-          <g transform="translate(260,332)">
-            <circle r="26" fill="#14b8a6"/>
-            <path d="M0 -11c3 3 5 6 5 9a5 5 0 1 1-10 0c0-1 .3-2 .8-3 .3 1.4 1.6 2 1.6 2s-.9-2.8.5-4.8c.6.9.9 1.8.9 1.8s.3-2 1.2-4z" fill="#ffffff"/>
+
+          <!-- патрубки снизу -->
+          <rect x="150" y="378" width="14" height="30" fill="#94a3b8"/>
+          <rect x="236" y="378" width="14" height="30" fill="#94a3b8"/>
+
+          <!-- бейдж "исправно" -->
+          <g class="boiler-check" transform="translate(276,144)">
+            <circle r="25" fill="#22c55e"/>
+            <path d="M-10 0l7 7 14-14" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
         </svg>
       </div>
@@ -342,83 +338,78 @@
 <!-- ======================= УСЛУГИ ======================= -->
 <section id="services" class="py-20 bg-slate-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-14" data-animate>
+    <div class="text-center max-w-2xl mx-auto mb-10" data-animate>
       <span class="text-aqua-600 font-bold text-sm uppercase tracking-wider" data-i18n="services.eyebrow">Наши услуги</span>
-      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight" data-i18n="services.title">Полный спектр сантехнических работ</h2>
-      <p class="mt-4 text-slate-500" data-i18n="services.subtitle">От мелкого ремонта до капитальной замены систем — выполняем под ключ.</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight" data-i18n="services.title">Ремонт котлов и сантехника под ключ</h2>
+      <p class="mt-4 text-slate-500" data-i18n="services.subtitle">Главное направление — газовые котлы. Плюс все мелкие сантехнические работы по дому.</p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Card 1 -->
-      <div class="bg-white rounded-2xl p-7 shadow-sm hover:shadow-xl hover:shadow-navy-900/5 transition-all hover:-translate-y-1" data-animate>
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center mb-5">
-          <i data-lucide="flame" class="w-7 h-7 text-aqua-400"></i>
+    <!-- Service category tabs -->
+    <div class="flex flex-wrap justify-center gap-2 mb-10" data-animate>
+      <button class="service-tab active px-6 py-3 rounded-full text-sm font-bold border transition-colors inline-flex items-center gap-2" data-service-tab="boilers">
+        <i data-lucide="flame" class="w-4 h-4"></i>
+        <span data-i18n="services.tabBoilers">Котлы</span>
+      </button>
+      <button class="service-tab px-6 py-3 rounded-full text-sm font-bold border transition-colors inline-flex items-center gap-2" data-service-tab="plumbing">
+        <i data-lucide="wrench" class="w-4 h-4"></i>
+        <span data-i18n="services.tabPlumbing">Сантехника</span>
+      </button>
+    </div>
+
+    <!-- Панель: Котлы -->
+    <div class="service-panel" data-service-panel="boilers">
+      <div class="grid lg:grid-cols-2 gap-10 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-sm" data-animate>
+        <div class="order-2 lg:order-1">
+          <h3 class="font-bold text-navy-900 text-2xl mb-3" data-i18n="services.boilersTitle">Решаем любые проблемы с газовым котлом</h3>
+          <p class="text-slate-500 mb-6" data-i18n="services.boilersSubtitle">Независимо от марки и модели. Диагностика, чистка, ремонт и профилактика.</p>
+          <ul class="grid sm:grid-cols-2 gap-3 text-sm text-slate-600">
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b1">Котёл не запускается или запускается с трудом</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b2">Ошибка давления, пламя не удерживается</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b3">Горячая вода с задержкой или без давления</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b4">Профилактика и профессиональная чистка</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b5">Котёл не греет воду, радиаторы холодные</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b6">Посторонние звуки во время работы</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b7">Утечки и проблемы с давлением в системе</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.b8">Ремонт и обслуживание всех марок и моделей</span></li>
+          </ul>
+          <a href="#calculator" class="mt-7 inline-flex items-center justify-center gap-2 bg-signal-orange hover:bg-signal-orange-dark text-white font-bold text-sm px-6 py-3.5 rounded-xl transition-colors">
+            <i data-lucide="phone-call" class="w-4 h-4"></i>
+            <span data-i18n="services.boilersCta">Вызвать мастера по котлу</span>
+          </a>
         </div>
-        <h3 class="font-bold text-navy-900 text-xl mb-3" data-i18n="services.card1title">Отопление и котлы</h3>
-        <ul class="space-y-2 text-sm text-slate-500">
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card1li1">Монтаж систем отопления «под ключ»</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card1li2">Чистка теплообменников</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card1li3">Ремонт газовых и электрических котлов</span></li>
-        </ul>
+        <div class="order-1 lg:order-2 flex justify-center">
+          <div class="w-full max-w-xs aspect-square rounded-3xl bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+            <i data-lucide="flame" class="w-24 h-24 text-signal-orange"></i>
+          </div>
+        </div>
       </div>
-      <!-- Card 2 -->
-      <div class="bg-white rounded-2xl p-7 shadow-sm hover:shadow-xl hover:shadow-navy-900/5 transition-all hover:-translate-y-1" data-animate>
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center mb-5">
-          <i data-lucide="wrench" class="w-7 h-7 text-aqua-400"></i>
+    </div>
+
+    <!-- Панель: Сантехника -->
+    <div class="service-panel hidden" data-service-panel="plumbing">
+      <div class="grid lg:grid-cols-2 gap-10 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-sm" data-animate>
+        <div class="order-2 lg:order-1">
+          <h3 class="font-bold text-navy-900 text-2xl mb-3" data-i18n="services.plumbingTitle">Быстро решаем сантехнические задачи</h3>
+          <p class="text-slate-500 mb-6" data-i18n="services.plumbingSubtitle">В ванной, на кухне или в любой другой части дома — аккуратно и с гарантией.</p>
+          <ul class="grid sm:grid-cols-2 gap-3 text-sm text-slate-600">
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.p1">Ремонт и замена кранов, смесителей</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.p2">Капающий кран, протечки под раковиной</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.p3">Замена унитаза, смесителя, душевой кабины</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.p4">Протечки в трубах</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.p5">Низкое давление воды в системе</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.p6">Установка бойлера, фильтра, гибких подводок</span></li>
+            <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.p7">Мелкий ремонт по дому («муж на час»)</span></li>
+          </ul>
+          <a href="#calculator" class="mt-7 inline-flex items-center justify-center gap-2 bg-signal-orange hover:bg-signal-orange-dark text-white font-bold text-sm px-6 py-3.5 rounded-xl transition-colors">
+            <i data-lucide="phone-call" class="w-4 h-4"></i>
+            <span data-i18n="services.plumbingCta">Вызвать мастера</span>
+          </a>
         </div>
-        <h3 class="font-bold text-navy-900 text-xl mb-3" data-i18n="services.card2title">Сантехника под ключ</h3>
-        <ul class="space-y-2 text-sm text-slate-500">
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card2li1">Установка унитазов и раковин</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card2li2">Смена стояков и труб PPR / металлопласт</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card2li3">Разводка водоснабжения</span></li>
-        </ul>
-      </div>
-      <!-- Card 3 -->
-      <div class="bg-white rounded-2xl p-7 shadow-sm hover:shadow-xl hover:shadow-navy-900/5 transition-all hover:-translate-y-1" data-animate>
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center mb-5">
-          <i data-lucide="shower-head" class="w-7 h-7 text-aqua-400"></i>
+        <div class="order-1 lg:order-2 flex justify-center">
+          <div class="w-full max-w-xs aspect-square rounded-3xl bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+            <i data-lucide="wrench" class="w-24 h-24 text-aqua-400"></i>
+          </div>
         </div>
-        <h3 class="font-bold text-navy-900 text-xl mb-3" data-i18n="services.card3title">Душевые кабины и ванные</h3>
-        <ul class="space-y-2 text-sm text-slate-500">
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card3li1">Монтаж и подключение душевых кабин</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card3li2">Герметизация швов</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card3li3">Подключение гидромассажа</span></li>
-        </ul>
-      </div>
-      <!-- Card 4 -->
-      <div class="bg-white rounded-2xl p-7 shadow-sm hover:shadow-xl hover:shadow-navy-900/5 transition-all hover:-translate-y-1" data-animate>
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center mb-5">
-          <i data-lucide="waves" class="w-7 h-7 text-aqua-400"></i>
-        </div>
-        <h3 class="font-bold text-navy-900 text-xl mb-3" data-i18n="services.card4title">Канализация</h3>
-        <ul class="space-y-2 text-sm text-slate-500">
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card4li1">Устранение засоров механическим способом</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card4li2">Гидродинамическая прочистка</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card4li3">Замена канализационных труб</span></li>
-        </ul>
-      </div>
-      <!-- Card 5 -->
-      <div class="bg-white rounded-2xl p-7 shadow-sm hover:shadow-xl hover:shadow-navy-900/5 transition-all hover:-translate-y-1" data-animate>
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-navy-700 to-navy-900 flex items-center justify-center mb-5">
-          <i data-lucide="hammer" class="w-7 h-7 text-aqua-400"></i>
-        </div>
-        <h3 class="font-bold text-navy-900 text-xl mb-3" data-i18n="services.card5title">«Муж на час»</h3>
-        <ul class="space-y-2 text-sm text-slate-500">
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card5li1">Мелкий бытовой ремонт</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card5li2">Сборка и навеска мебели, сантехники</span></li>
-          <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-aqua-500 mt-0.5 shrink-0"></i><span data-i18n="services.card5li3">Устранение мелких протечек</span></li>
-        </ul>
-      </div>
-      <!-- Card 6 - CTA card -->
-      <div class="rounded-2xl p-7 bg-gradient-to-br from-navy-800 to-navy-950 flex flex-col justify-between text-white" data-animate>
-        <div>
-          <h3 class="font-bold text-xl mb-2" data-i18n="services.ctaTitle">Не нашли нужную услугу?</h3>
-          <p class="text-sm text-slate-300" data-i18n="services.ctaText">Опишите проблему — подберём решение и назовём цену за 5 минут.</p>
-        </div>
-        <a href="#calculator" class="mt-6 inline-flex items-center justify-center gap-2 bg-aqua-500 hover:bg-aqua-600 text-white font-bold text-sm px-5 py-3 rounded-xl transition-colors">
-          <i data-lucide="message-square" class="w-4 h-4"></i>
-          <span data-i18n="services.ctaBtn">Оставить заявку</span>
-        </a>
       </div>
     </div>
   </div>
@@ -435,10 +426,9 @@
 
     <!-- Tabs -->
     <div class="flex flex-wrap justify-center gap-2 mb-8" data-animate>
-      <button class="price-tab active px-5 py-2.5 rounded-full text-sm font-bold border transition-colors" data-tab="heating" data-i18n="prices.tab1">Отопление</button>
+      <button class="price-tab active px-5 py-2.5 rounded-full text-sm font-bold border transition-colors" data-tab="heating" data-i18n="prices.tab1">Котлы</button>
       <button class="price-tab px-5 py-2.5 rounded-full text-sm font-bold border transition-colors" data-tab="santeh" data-i18n="prices.tab2">Сантехника</button>
       <button class="price-tab px-5 py-2.5 rounded-full text-sm font-bold border transition-colors" data-tab="shower" data-i18n="prices.tab3">Душевые кабины</button>
-      <button class="price-tab px-5 py-2.5 rounded-full text-sm font-bold border transition-colors" data-tab="sewer" data-i18n="prices.tab4">Канализация</button>
     </div>
 
     <!-- Price panels -->
@@ -446,8 +436,9 @@
       <div class="price-panel" data-panel="heating">
         <div class="divide-y divide-slate-100 border border-slate-100 rounded-2xl overflow-hidden">
           <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.h1">Диагностика котла</span><span class="font-bold text-navy-900">от 250 MDL</span></div>
-          <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.h2">Установка бойлера</span><span class="font-bold text-navy-900">от 600 MDL</span></div>
           <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.h3">Чистка теплообменника</span><span class="font-bold text-navy-900">от 450 MDL</span></div>
+          <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.h5">Ремонт платы управления</span><span class="font-bold text-navy-900">от 500 MDL</span></div>
+          <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.h2">Установка бойлера</span><span class="font-bold text-navy-900">от 600 MDL</span></div>
           <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.h4">Монтаж системы отопления (за точку)</span><span class="font-bold text-navy-900">от 350 MDL</span></div>
         </div>
       </div>
@@ -464,13 +455,6 @@
           <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.sh1">Монтаж душевой кабины</span><span class="font-bold text-navy-900">от 900 MDL</span></div>
           <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.sh2">Герметизация швов</span><span class="font-bold text-navy-900">от 250 MDL</span></div>
           <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.sh3">Подключение гидромассажа</span><span class="font-bold text-navy-900">от 500 MDL</span></div>
-        </div>
-      </div>
-      <div class="price-panel hidden" data-panel="sewer">
-        <div class="divide-y divide-slate-100 border border-slate-100 rounded-2xl overflow-hidden">
-          <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.sw1">Прочистка канализации (механически)</span><span class="font-bold text-navy-900">от 350 MDL</span></div>
-          <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.sw2">Гидродинамическая прочистка</span><span class="font-bold text-navy-900">от 600 MDL</span></div>
-          <div class="flex items-center justify-between px-6 py-4 hover:bg-slate-50"><span data-i18n="prices.sw3">Замена канализационных труб (за метр)</span><span class="font-bold text-navy-900">от 180 MDL</span></div>
         </div>
       </div>
       <p class="text-center text-xs text-slate-400 mt-6" data-i18n="prices.note">* Итоговая стоимость зависит от объёма работ и материалов. Выезд и диагностика — бесплатно при заказе работ.</p>
@@ -500,9 +484,9 @@
       <div class="sm:col-span-2">
         <label class="block text-sm font-bold text-navy-900 mb-2" data-i18n="calc.serviceLabel">Тип услуги</label>
         <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition bg-white">
-          <option data-i18n="calc.opt1">Аварийный выезд (протечка, засор)</option>
-          <option data-i18n="calc.opt2">Отопление / котёл</option>
-          <option data-i18n="calc.opt3">Установка сантехники</option>
+          <option data-i18n="calc.opt2">Ремонт / чистка котла</option>
+          <option data-i18n="calc.opt1">Аварийный выезд (протечка)</option>
+          <option data-i18n="calc.opt3">Сантехнические работы</option>
           <option data-i18n="calc.opt4">Душевая кабина</option>
           <option data-i18n="calc.opt5">Другое / не знаю</option>
         </select>
