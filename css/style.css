@@ -1,0 +1,108 @@
+/* =========================================================
+   МастерСантехник — базовые стили
+   ========================================================= */
+
+* {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #14b8a6;
+  color: #fff;
+}
+
+/* -------- Header shrink on scroll -------- */
+#header.scrolled {
+  box-shadow: 0 4px 24px rgba(11, 28, 51, 0.06);
+}
+
+/* -------- Scroll-reveal animation -------- */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-animate].in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -------- Language switch buttons -------- */
+.lang-btn {
+  color: #64748b;
+}
+
+.lang-btn.active {
+  background: #0b1c33;
+  color: #fff;
+}
+
+/* -------- Price tabs -------- */
+.price-tab {
+  border-color: #e2e8f0;
+  color: #475569;
+  background: #fff;
+}
+
+.price-tab.active {
+  background: #0b1c33;
+  border-color: #0b1c33;
+  color: #fff;
+}
+
+/* -------- Mobile menu links -------- */
+.mobile-link:last-of-type {
+  border-bottom: none;
+}
+
+/* -------- Modal -------- */
+#call-modal-overlay.open {
+  display: flex;
+}
+
+#call-modal-box.open {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* -------- Sticky mobile CTA -------- */
+#sticky-cta.visible {
+  transform: translateY(0);
+}
+
+/* -------- Custom scrollbar (subtle) -------- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* -------- Focus visibility for accessibility -------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+}
