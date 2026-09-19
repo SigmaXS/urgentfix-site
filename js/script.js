@@ -1,5 +1,5 @@
 // =========================================================
-// МастерСантехник — интерактивная логика сайта
+// UrgentFix — интерактивная логика сайта
 // =========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -265,7 +265,7 @@ function initForms() {
 --------------------------------------------------------- */
 const I18N = {
   ru: {
-    'logo.tag': 'Кишинёв · 24/7',
+    'logo.tag': 'Мастер на все руки',
     'nav.services': 'Услуги',
     'nav.prices': 'Цены',
     'nav.calc': 'Заявка',
@@ -378,7 +378,7 @@ const I18N = {
     'contacts.mapText': 'Выезжаем в любой район города и пригород',
     'footerCta.title': 'Труба потекла прямо сейчас?',
     'footerCta.text': 'Не ждите — звоните, мастер уже в пути через 30–45 минут.',
-    'footer.copy': '© 2026 МастерСантехник. Все права защищены.',
+    'footer.copy': '© 2026 UrgentFix. Все права защищены.',
     'sticky.call': 'Позвонить',
     'sticky.emergency': 'Срочный вызов',
     'modal.title': 'Заказать обратный звонок',
@@ -390,7 +390,7 @@ const I18N = {
     'modal.successText': 'Мы перезвоним вам в ближайшие 5 минут.'
   },
   ro: {
-    'logo.tag': 'Chișinău · 24/7',
+    'logo.tag': 'Meșter bun la toate',
     'nav.services': 'Servicii',
     'nav.prices': 'Prețuri',
     'nav.calc': 'Cerere',
@@ -503,7 +503,7 @@ const I18N = {
     'contacts.mapText': 'Ne deplasăm în orice sector al orașului și suburbii',
     'footerCta.title': 'Vi s-a spart o țeavă chiar acum?',
     'footerCta.text': 'Nu așteptați — sunați, meșterul ajunge în 30–45 minute.',
-    'footer.copy': '© 2026 MasterSantehnic. Toate drepturile rezervate.',
+    'footer.copy': '© 2026 UrgentFix. Toate drepturile rezervate.',
     'sticky.call': 'Sună',
     'sticky.emergency': 'Apel urgent',
     'modal.title': 'Comandă un apel',
