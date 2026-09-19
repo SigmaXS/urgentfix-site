@@ -190,7 +190,7 @@ body {
 }
 
 .svcboiler-check {
-  transform-origin: 222px 72px;
+  transform-origin: 222px 150px;
   animation: svcBoilerCheck 9s ease-in-out infinite;
 }
 @keyframes svcBoilerCheck {
@@ -200,13 +200,42 @@ body {
   100%    { opacity: 0; transform: scale(0.9); }
 }
 
+.svcboiler-sensor {
+  transform-origin: 0 0;
+  animation: svcBoilerSensor 9s ease-in-out infinite;
+}
+@keyframes svcBoilerSensor {
+  0%, 18%   { transform: translate(150px, 100px) rotate(0deg); }
+  30%, 50%  { transform: translate(150px, 26px) rotate(-14deg); }
+  62%, 100% { transform: translate(150px, 100px) rotate(0deg); }
+}
+
+.svcboiler-display-off {
+  animation: svcBoilerDisplayOff 9s ease-in-out infinite;
+}
+@keyframes svcBoilerDisplayOff {
+  0%, 9%    { opacity: 1; }
+  13%, 100% { opacity: 0; }
+}
+
+.svcboiler-display-on {
+  animation: svcBoilerDisplayOn 9s ease-in-out infinite;
+}
+@keyframes svcBoilerDisplayOn {
+  0%, 88% { opacity: 0; }
+  94%, 100% { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .svcboiler-cover, .svcboiler-pump, .svcboiler-pcb, .svcboiler-wrench, .svcboiler-check {
+  .svcboiler-cover, .svcboiler-pump, .svcboiler-pcb, .svcboiler-sensor, .svcboiler-wrench, .svcboiler-check, .svcboiler-display-off, .svcboiler-display-on {
     animation: none !important;
   }
   .svcboiler-pump { transform: translate(115px, 140px); }
   .svcboiler-pcb { transform: translate(185px, 140px); }
+  .svcboiler-sensor { transform: translate(150px, 100px); }
   .svcboiler-wrench { opacity: 0; }
+  .svcboiler-display-off { opacity: 0; }
+  .svcboiler-display-on { opacity: 1; }
   .svcboiler-check { opacity: 0; }
 }
 
