@@ -146,6 +146,136 @@ body {
   .boiler-check { opacity: 0; }
 }
 
+/* -------- Service card animation: boiler service (Котлы tab) -------- */
+.svcboiler-cover {
+  animation: svcBoilerCover 9s ease-in-out infinite;
+}
+@keyframes svcBoilerCover {
+  0%, 11%   { opacity: 1; transform: translateY(0); }
+  20%, 62%  { opacity: 0; transform: translateY(-150px); }
+  72%, 100% { opacity: 1; transform: translateY(0); }
+}
+
+.svcboiler-pump {
+  transform-origin: 0 0;
+  animation: svcBoilerPump 9s ease-in-out infinite;
+}
+@keyframes svcBoilerPump {
+  0%, 18%   { transform: translate(115px, 140px) rotate(0deg); }
+  30%, 50%  { transform: translate(58px, 205px) rotate(-22deg); }
+  62%, 100% { transform: translate(115px, 140px) rotate(0deg); }
+}
+
+.svcboiler-pcb {
+  transform-origin: 0 0;
+  animation: svcBoilerPcb 9s ease-in-out infinite;
+}
+@keyframes svcBoilerPcb {
+  0%, 18%   { transform: translate(185px, 140px) rotate(0deg); filter: drop-shadow(0 0 0 rgba(255, 106, 61, 0)); }
+  30%, 50%  { transform: translate(244px, 205px) rotate(18deg); filter: drop-shadow(0 0 9px rgba(255, 106, 61, 0.9)); }
+  62%, 100% { transform: translate(185px, 140px) rotate(0deg); filter: drop-shadow(0 0 0 rgba(255, 106, 61, 0)); }
+}
+
+.svcboiler-wrench {
+  transform-origin: 0 0;
+  opacity: 0;
+  animation: svcBoilerWrench 9s ease-in-out infinite;
+}
+@keyframes svcBoilerWrench {
+  0%, 24%   { opacity: 0; transform: translate(58px, 205px) rotate(-10deg); }
+  30%       { opacity: 1; transform: translate(58px, 205px) rotate(15deg); }
+  36%       { opacity: 1; transform: translate(58px, 205px) rotate(-15deg); }
+  42%       { opacity: 1; transform: translate(58px, 205px) rotate(10deg); }
+  50%, 100% { opacity: 0; transform: translate(58px, 205px) rotate(-10deg); }
+}
+
+.svcboiler-check {
+  transform-origin: 222px 72px;
+  animation: svcBoilerCheck 9s ease-in-out infinite;
+}
+@keyframes svcBoilerCheck {
+  0%, 76% { opacity: 0; transform: scale(0.5); }
+  82%     { opacity: 1; transform: scale(1.2); }
+  90%, 96% { opacity: 1; transform: scale(1); }
+  100%    { opacity: 0; transform: scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svcboiler-cover, .svcboiler-pump, .svcboiler-pcb, .svcboiler-wrench, .svcboiler-check {
+    animation: none !important;
+  }
+  .svcboiler-pump { transform: translate(115px, 140px); }
+  .svcboiler-pcb { transform: translate(185px, 140px); }
+  .svcboiler-wrench { opacity: 0; }
+  .svcboiler-check { opacity: 0; }
+}
+
+/* -------- Service card animation: plumbing service (Сантехника tab) -------- */
+.svcplumb-handle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: svcPlumbHandle 9s ease-in-out infinite;
+}
+@keyframes svcPlumbHandle {
+  0%, 24%   { transform: rotate(0deg); }
+  32%       { transform: rotate(-28deg); }
+  40%       { transform: rotate(16deg); }
+  48%, 100% { transform: rotate(0deg); }
+}
+
+.svcplumb-wrench {
+  transform-origin: 0 0;
+  opacity: 0;
+  animation: svcPlumbWrench 9s ease-in-out infinite;
+}
+@keyframes svcPlumbWrench {
+  0%, 22%   { opacity: 0; transform: translate(150px, 98px) rotate(0deg); }
+  28%       { opacity: 1; transform: translate(150px, 98px) rotate(0deg); }
+  32%       { opacity: 1; transform: translate(150px, 98px) rotate(-28deg); }
+  40%       { opacity: 1; transform: translate(150px, 98px) rotate(16deg); }
+  46%       { opacity: 1; transform: translate(150px, 98px) rotate(0deg); }
+  52%, 100% { opacity: 0; transform: translate(150px, 98px) rotate(0deg); }
+}
+
+.svcplumb-shine {
+  animation: svcPlumbShine 9s ease-in-out infinite;
+}
+@keyframes svcPlumbShine {
+  0%, 26%   { opacity: 0; }
+  32%, 44%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.svcplumb-drip {
+  transform-origin: 0 0;
+  animation: svcPlumbDrip 9s ease-in-out infinite;
+}
+@keyframes svcPlumbDrip {
+  0%, 40%   { opacity: 1; transform: translate(196px, 158px) scale(1); }
+  50%, 100% { opacity: 0; transform: translate(196px, 158px) scale(0.3); }
+}
+
+.svcplumb-check {
+  transform-origin: 222px 150px;
+  animation: svcPlumbCheck 9s ease-in-out infinite;
+}
+@keyframes svcPlumbCheck {
+  0%, 56% { opacity: 0; transform: scale(0.5); }
+  64%     { opacity: 1; transform: scale(1.2); }
+  74%, 96% { opacity: 1; transform: scale(1); }
+  100%    { opacity: 0; transform: scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svcplumb-handle, .svcplumb-wrench, .svcplumb-shine, .svcplumb-drip, .svcplumb-check {
+    animation: none !important;
+  }
+  .svcplumb-wrench { opacity: 0; }
+  .svcplumb-shine { opacity: 0; }
+  .svcplumb-drip { opacity: 1; transform: translate(196px, 158px); }
+  .svcplumb-check { opacity: 0; }
+}
+
 /* -------- Service category tabs (Котлы / Сантехника) -------- */
 .service-tab {
   border-color: #e2e8f0;
