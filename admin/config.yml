@@ -1,0 +1,48 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
+
+locale: "ru"
+
+collections:
+  - name: "settings"
+    label: "Главные настройки"
+    files:
+      - file: "content/settings.json"
+        label: "Контакты и главный экран"
+        name: "settings"
+        fields:
+          - { label: "Телефон (как показывать на сайте)", name: "phone", widget: "string", hint: "Например: +373 78 293 919" }
+          - { label: "Телефон (только цифры, с кодом страны, без +)", name: "phoneDigits", widget: "string", hint: "Например: 37378293919 — используется в ссылках tel:/WhatsApp/Viber/Telegram" }
+          - { label: "Ссылка на отзыв в Google", name: "googleReviewUrl", widget: "string", hint: "Получить можно в Google Business Profile → «Запросить отзывы»" }
+          - { label: "Бейдж на главном экране (RU)", name: "heroBadgeRu", widget: "string" }
+          - { label: "Бейдж на главном экране (RO)", name: "heroBadgeRo", widget: "string" }
+          - { label: "Подзаголовок на главном экране (RU)", name: "heroSubtitleRu", widget: "text" }
+          - { label: "Подзаголовок на главном экране (RO)", name: "heroSubtitleRo", widget: "text" }
+          - { label: "Зона обслуживания (RU)", name: "zoneTextRu", widget: "string" }
+          - { label: "Зона обслуживания (RO)", name: "zoneTextRo", widget: "string" }
+          - { label: "Режим работы (RU)", name: "hoursTextRu", widget: "string" }
+          - { label: "Режим работы (RO)", name: "hoursTextRo", widget: "string" }
+
+  - name: "reviews"
+    label: "Отзывы клиентов"
+    files:
+      - file: "content/reviews.json"
+        label: "Список отзывов"
+        name: "reviews"
+        fields:
+          - label: "Отзывы"
+            name: "items"
+            widget: "list"
+            summary: "{{nameRu}} — {{locationRu}}"
+            fields:
+              - { label: "Имя (RU)", name: "nameRu", widget: "string" }
+              - { label: "Имя (RO)", name: "nameRo", widget: "string" }
+              - { label: "Город (RU)", name: "locationRu", widget: "string" }
+              - { label: "Город (RO)", name: "locationRo", widget: "string" }
+              - { label: "Текст отзыва (RU)", name: "textRu", widget: "text" }
+              - { label: "Текст отзыва (RO)", name: "textRo", widget: "text" }
+              - { label: "Оценка", name: "rating", widget: "number", default: 5, min: 1, max: 5, value_type: "int" }

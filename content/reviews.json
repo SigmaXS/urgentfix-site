@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "nameRu": "Олег В.",
+      "nameRo": "Oleg V.",
+      "locationRu": "Ботаника, Кишинёв",
+      "locationRo": "Botanica, Chișinău",
+      "textRu": "«Ночью прорвало трубу на кухне, позвонил в час ночи — мастер приехал через 40 минут, всё аккуратно устранил. Цену назвали сразу, доплат не было.»",
+      "textRo": "„Noaptea s-a spart o țeavă la bucătărie, am sunat la ora unu — meșterul a venit în 40 de minute, a rezolvat totul îngrijit. Prețul a fost anunțat imediat, fără taxe suplimentare.”",
+      "rating": 5
+    },
+    {
+      "nameRu": "Мария К.",
+      "nameRo": "Maria C.",
+      "locationRu": "Рышкановка, Кишинёв",
+      "locationRo": "Râșcani, Chișinău",
+      "textRu": "«Заказывали установку душевой кабины под ключ. Приехали вовремя, работали чисто и быстро, объяснили гарантию. Рекомендую как надёжную бригаду.»",
+      "textRo": "„Am comandat montarea unei cabine de duș la cheie. Au venit la timp, au lucrat curat și rapid, au explicat garanția. Recomand ca echipă de încredere.”",
+      "rating": 5
+    },
+    {
+      "nameRu": "Игорь Д.",
+      "nameRo": "Igor D.",
+      "locationRu": "Чеканы, Кишинёв",
+      "locationRo": "Ciocana, Chișinău",
+      "textRu": "«Почистили теплообменник котла перед началом сезона — котёл стал работать тише и экономичнее. Мастер грамотный, всё объяснил по-человечески.»",
+      "textRo": "„Au curățat schimbătorul de căldură al centralei înainte de sezon — centrala funcționează mai silențios și mai economic. Meșter competent, a explicat totul clar.”",
+      "rating": 5
+    }
+  ]
+}

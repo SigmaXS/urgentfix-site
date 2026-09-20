@@ -14,7 +14,122 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyCta();
   initForms();
   initLang();
+  loadContent();
 });
+
+/* ---------------------------------------------------------
+   Контент из content/*.json (редактируется через /admin CMS)
+--------------------------------------------------------- */
+async function loadContent() {
+  try {
+    const [settingsRes, reviewsRes] = await Promise.all([
+      fetch('content/settings.json', { cache: 'no-store' }),
+      fetch('content/reviews.json', { cache: 'no-store' })
+    ]);
+    if (settingsRes.ok) {
+      const settings = await settingsRes.json();
+      applySettings(settings);
+    }
+    if (reviewsRes.ok) {
+      const reviews = await reviewsRes.json();
+      renderReviews(reviews.items || []);
+    }
+  } catch (e) {
+    // content/*.json недоступен (например, открыли файл локально без сервера) —
+    // сайт продолжает работать со значениями по умолчанию из HTML/скрипта
+  }
+}
+
+function applySettings(settings) {
+  if (settings.phone && settings.phoneDigits) {
+    WA_NUMBER = settings.phoneDigits;
+    const display = settings.phone;
+    const tel = settings.phoneDigits;
+
+    document.querySelectorAll('a[href^="tel:"]').forEach((a) => {
+      a.setAttribute('href', 'tel:+' + tel);
+      if (/^\+?\d[\d\s]*$/.test(a.textContent.trim())) {
+        a.textContent = display;
+      }
+    });
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach((a) => {
+      a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + tel);
+    });
+    document.querySelectorAll('a[href^="viber://chat"]').forEach((a) => {
+      a.href = 'viber://chat?number=%2B' + tel;
+    });
+    document.querySelectorAll('a[href^="https://t.me/+"]').forEach((a) => {
+      a.href = 'https://t.me/+' + tel;
+    });
+  }
+
+  if (settings.googleReviewUrl) {
+    document.querySelectorAll('a[href*="REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK"], a[href*="g.page/r/"]').forEach((a) => {
+      a.href = settings.googleReviewUrl;
+    });
+  }
+
+  const ru = I18N.ru;
+  const ro = I18N.ro;
+  if (settings.heroBadgeRu) ru['hero.badge'] = settings.heroBadgeRu;
+  if (settings.heroBadgeRo) ro['hero.badge'] = settings.heroBadgeRo;
+  if (settings.heroSubtitleRu) ru['hero.subtitle'] = settings.heroSubtitleRu;
+  if (settings.heroSubtitleRo) ro['hero.subtitle'] = settings.heroSubtitleRo;
+  if (settings.zoneTextRu) ru['contacts.zoneText'] = settings.zoneTextRu;
+  if (settings.zoneTextRo) ro['contacts.zoneText'] = settings.zoneTextRo;
+  if (settings.hoursTextRu) ru['contacts.hoursText'] = settings.hoursTextRu;
+  if (settings.hoursTextRo) ro['contacts.hoursText'] = settings.hoursTextRo;
+
+  // перерисовываем тексты с учётом новых значений из CMS
+  applyLang(document.documentElement.lang === 'ro' ? 'ro' : 'ru');
+}
+
+function renderReviews(items) {
+  const grid = document.getElementById('reviews-grid');
+  if (!grid || !items.length) return;
+
+  const avatarColors = ['bg-navy-900'];
+  const starsSvg = '<i data-lucide="star" class="w-4 h-4 fill-current"></i>'.repeat(5);
+
+  grid.innerHTML = items.map((r) => {
+    const initials = (r.nameRu || '?').split(' ').map((w) => w[0]).join('').slice(0, 2).toUpperCase();
+    return `
+      <div class="bg-white rounded-2xl p-7 shadow-sm review-card" data-animate>
+        <div class="flex gap-1 mb-4 text-signal-orange">${starsSvg}</div>
+        <p class="text-slate-600 text-sm leading-relaxed mb-6 review-text" data-text-ru="${escapeAttr(r.textRu)}" data-text-ro="${escapeAttr(r.textRo)}">${escapeHtml(r.textRu)}</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-navy-900 text-white flex items-center justify-center font-bold text-sm">${initials}</div>
+          <div>
+            <div class="font-bold text-navy-900 text-sm review-name" data-name-ru="${escapeAttr(r.nameRu)}" data-name-ro="${escapeAttr(r.nameRo)}">${escapeHtml(r.nameRu)}</div>
+            <div class="text-xs text-slate-400 review-loc" data-loc-ru="${escapeAttr(r.locationRu)}" data-loc-ro="${escapeAttr(r.locationRo)}">${escapeHtml(r.locationRu)}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  applyReviewLang(document.documentElement.lang === 'ro' ? 'ro' : 'ru');
+  initIcons();
+  document.querySelectorAll('#reviews-grid [data-animate]').forEach((el) => el.classList.add('in-view'));
+}
+
+function applyReviewLang(lang) {
+  document.querySelectorAll('.review-text').forEach((el) => {
+    el.textContent = el.getAttribute(lang === 'ro' ? 'data-text-ro' : 'data-text-ru') || el.textContent;
+  });
+  document.querySelectorAll('.review-name').forEach((el) => {
+    el.textContent = el.getAttribute(lang === 'ro' ? 'data-name-ro' : 'data-name-ru') || el.textContent;
+  });
+  document.querySelectorAll('.review-loc').forEach((el) => {
+    el.textContent = el.getAttribute(lang === 'ro' ? 'data-loc-ro' : 'data-loc-ru') || el.textContent;
+  });
+}
+
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function escapeAttr(str) {
+  return escapeHtml(str);
+}
 
 /* ---------------------------------------------------------
    Lucide icons
@@ -219,7 +334,7 @@ function initStickyCta() {
 /* ---------------------------------------------------------
    Обработка форм (заявка + модалка)
 --------------------------------------------------------- */
-const WA_NUMBER = '37378293919';
+let WA_NUMBER = '37378293919';
 
 const WA_LABELS = {
   ru: { title: 'Заявка с сайта UrgentFix:', name: 'Имя:', phone: 'Телефон:', service: 'Услуга:', desc: 'Проблема:', notSpecified: 'не указано' },
@@ -625,5 +740,6 @@ function applyLang(lang) {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
 
+  applyReviewLang(lang);
   initIcons();
 }
