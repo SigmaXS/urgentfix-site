@@ -219,26 +219,51 @@ function initStickyCta() {
 /* ---------------------------------------------------------
    Обработка форм (заявка + модалка)
 --------------------------------------------------------- */
+const WA_NUMBER = '37378293919';
+
+const WA_LABELS = {
+  ru: { title: 'Заявка с сайта UrgentFix:', name: 'Имя:', phone: 'Телефон:', service: 'Услуга:', desc: 'Проблема:', notSpecified: 'не указано' },
+  ro: { title: 'Cerere de pe site-ul UrgentFix:', name: 'Nume:', phone: 'Telefon:', service: 'Serviciu:', desc: 'Problema:', notSpecified: 'nespecificat' }
+};
+
+function currentWaLabels() {
+  const lang = document.documentElement.lang === 'ro' ? 'ro' : 'ru';
+  return WA_LABELS[lang];
+}
+
 function initForms() {
   const requestForm = document.getElementById('request-form');
-  if (requestForm) {
+  const requestSuccess = document.getElementById('request-success');
+  const requestAgainBtn = document.getElementById('request-success-again');
+
+  if (requestForm && requestSuccess) {
     requestForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const btn = requestForm.querySelector('button[type="submit"]');
-      const original = btn.innerHTML;
-      const lang = document.documentElement.lang === 'ro' ? 'ro' : 'ru';
-      const sentText = lang === 'ro' ? 'Trimis! Vă vom suna în curând.' : 'Отправлено! Скоро свяжемся с вами.';
+      const L = currentWaLabels();
+      const name = document.getElementById('fName').value.trim();
+      const phone = document.getElementById('fPhone').value.trim();
+      const service = document.getElementById('fService').value;
+      const desc = document.getElementById('fDesc').value.trim();
 
-      btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i><span>${sentText}</span>`;
+      const lines = [L.title];
+      lines.push(`${L.name} ${name || '—'}`);
+      lines.push(`${L.phone} ${phone || L.notSpecified}`);
+      lines.push(`${L.service} ${service}`);
+      if (desc) lines.push(`${L.desc} ${desc}`);
+
+      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+
+      requestForm.classList.add('hidden');
+      requestSuccess.classList.remove('hidden');
       initIcons();
+    });
+  }
 
-      setTimeout(() => {
-        requestForm.reset();
-        btn.disabled = false;
-        btn.innerHTML = original;
-        initIcons();
-      }, 3000);
+  if (requestAgainBtn && requestForm && requestSuccess) {
+    requestAgainBtn.addEventListener('click', () => {
+      requestForm.reset();
+      requestSuccess.classList.add('hidden');
+      requestForm.classList.remove('hidden');
     });
   }
 
@@ -247,17 +272,32 @@ function initForms() {
   if (modalForm && modalSuccess) {
     modalForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const L = currentWaLabels();
+      const name = document.getElementById('mName').value.trim();
+      const phone = document.getElementById('mPhone').value.trim();
+
+      const lines = [L.title];
+      lines.push(`${L.name} ${name || '—'}`);
+      lines.push(`${L.phone} ${phone || L.notSpecified}`);
+
+      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+
       modalForm.classList.add('hidden');
       modalSuccess.classList.remove('hidden');
       initIcons();
-
-      setTimeout(() => {
-        modalForm.reset();
-        modalForm.classList.remove('hidden');
-        modalSuccess.classList.add('hidden');
-      }, 3500);
     });
   }
+
+  // Сбрасываем модалку к состоянию формы при каждом открытии
+  document.querySelectorAll('[data-open-modal]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (modalForm && modalSuccess) {
+        modalForm.classList.remove('hidden');
+        modalSuccess.classList.add('hidden');
+        modalForm.reset();
+      }
+    });
+  });
 }
 
 /* ---------------------------------------------------------
@@ -356,6 +396,11 @@ const I18N = {
     'calc.descPlaceholder': 'Например: котёл не держит давление, нужна диагностика...',
     'calc.submit': 'Отправить заявку',
     'calc.privacy': 'Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.',
+    'calc.successTitle': 'Заявка отправлена в WhatsApp!',
+    'calc.successText': 'Если чат не открылся автоматически — позвоните нам напрямую. Мы свяжемся с вами в течение 5 минут.',
+    'calc.newRequest': 'Оставить ещё одну заявку',
+    'calc.reviewPrompt': 'Уже обращались к нам раньше? Будем благодарны за отзыв о нашей работе!',
+    'calc.reviewBtn': 'Оставить отзыв в Google',
     'reviews.eyebrow': 'Отзывы клиентов',
     'reviews.title': 'Нам доверяют сотни клиентов',
     'reviews.r1text': '«Ночью прорвало трубу на кухне, позвонил в час ночи — мастер приехал через 40 минут, всё аккуратно устранил. Цену назвали сразу, доплат не было.»',
@@ -387,8 +432,8 @@ const I18N = {
     'modal.namePlaceholder': 'Ваше имя',
     'modal.submit': 'Заказать звонок',
     'modal.orCall': 'или звоните напрямую: <a href="tel:+37378293919" class="font-bold text-navy-900">+373 78 293 919</a>',
-    'modal.successTitle': 'Заявка принята!',
-    'modal.successText': 'Мы перезвоним вам в ближайшие 5 минут.'
+    'modal.successTitle': 'Заявка отправлена в WhatsApp!',
+    'modal.successText': 'Если чат не открылся — позвоните нам напрямую, мы уже ждём.'
   },
   ro: {
     'logo.tag': 'Meșter bun la toate',
@@ -482,6 +527,11 @@ const I18N = {
     'calc.descPlaceholder': 'De exemplu: centrala nu ține presiunea, e nevoie de diagnosticare...',
     'calc.submit': 'Trimite cererea',
     'calc.privacy': 'Apăsând butonul, sunteți de acord cu prelucrarea datelor personale.',
+    'calc.successTitle': 'Cererea a fost trimisă pe WhatsApp!',
+    'calc.successText': 'Dacă chat-ul nu s-a deschis automat — sunați-ne direct. Vă contactăm în 5 minute.',
+    'calc.newRequest': 'Trimite încă o cerere',
+    'calc.reviewPrompt': 'Ați mai apelat la noi înainte? Vă vom fi recunoscători pentru o recenzie!',
+    'calc.reviewBtn': 'Lasă o recenzie pe Google',
     'reviews.eyebrow': 'Recenziile clienților',
     'reviews.title': 'Suntem de încredere pentru sute de clienți',
     'reviews.r1text': '„Noaptea s-a spart o țeavă la bucătărie, am sunat la ora unu — meșterul a venit în 40 de minute, a rezolvat totul îngrijit. Prețul a fost anunțat imediat, fără taxe suplimentare.”',
@@ -513,8 +563,8 @@ const I18N = {
     'modal.namePlaceholder': 'Numele dvs.',
     'modal.submit': 'Comandă apel',
     'modal.orCall': 'sau sunați direct: <a href="tel:+37378293919" class="font-bold text-navy-900">+373 78 293 919</a>',
-    'modal.successTitle': 'Cererea a fost acceptată!',
-    'modal.successText': 'Vă vom suna în următoarele 5 minute.'
+    'modal.successTitle': 'Cererea a fost trimisă pe WhatsApp!',
+    'modal.successText': 'Dacă chat-ul nu s-a deschis — sunați-ne direct, vă așteptăm.'
   }
 };
 

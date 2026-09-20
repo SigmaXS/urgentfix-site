@@ -538,15 +538,15 @@
     <form id="request-form" class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl grid sm:grid-cols-2 gap-5" data-animate>
       <div class="sm:col-span-1">
         <label class="block text-sm font-bold text-navy-900 mb-2" data-i18n="calc.nameLabel">Ваше имя</label>
-        <input type="text" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition" data-i18n-placeholder="calc.namePlaceholder" placeholder="Как к вам обращаться?">
+        <input id="fName" type="text" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition" data-i18n-placeholder="calc.namePlaceholder" placeholder="Как к вам обращаться?">
       </div>
       <div class="sm:col-span-1">
         <label class="block text-sm font-bold text-navy-900 mb-2" data-i18n="calc.phoneLabel">Телефон</label>
-        <input type="tel" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition" placeholder="+373 6_ ___ ___">
+        <input id="fPhone" type="tel" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition" placeholder="+373 6_ ___ ___">
       </div>
       <div class="sm:col-span-2">
         <label class="block text-sm font-bold text-navy-900 mb-2" data-i18n="calc.serviceLabel">Тип услуги</label>
-        <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition bg-white">
+        <select id="fService" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition bg-white">
           <option data-i18n="calc.opt2">Ремонт / чистка котла</option>
           <option data-i18n="calc.opt1">Аварийный выезд (протечка)</option>
           <option data-i18n="calc.opt3">Сантехнические работы</option>
@@ -556,7 +556,7 @@
       </div>
       <div class="sm:col-span-2">
         <label class="block text-sm font-bold text-navy-900 mb-2" data-i18n="calc.descLabel">Опишите проблему</label>
-        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition resize-none" data-i18n-placeholder="calc.descPlaceholder" placeholder="Например: течёт кран на кухне, нужно заменить прокладку..."></textarea>
+        <textarea id="fDesc" rows="4" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition resize-none" data-i18n-placeholder="calc.descPlaceholder" placeholder="Например: течёт кран на кухне, нужно заменить прокладку..."></textarea>
       </div>
       <div class="sm:col-span-2 flex flex-col sm:flex-row items-center gap-4 pt-2">
         <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-signal-green hover:bg-signal-green-dark text-white font-bold text-base px-8 py-4 rounded-xl shadow-lg shadow-green-500/25 transition-all hover:-translate-y-0.5">
@@ -566,6 +566,25 @@
         <p class="text-xs text-slate-400 text-center sm:text-left" data-i18n="calc.privacy">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.</p>
       </div>
     </form>
+
+    <!-- Экран после успешной отправки заявки -->
+    <div id="request-success" class="hidden bg-white rounded-3xl p-8 sm:p-12 shadow-2xl text-center" data-animate>
+      <div class="w-16 h-16 rounded-full bg-signal-green/10 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="check-circle" class="w-8 h-8 text-signal-green"></i>
+      </div>
+      <h3 class="font-bold text-navy-900 text-xl mb-2" data-i18n="calc.successTitle">Заявка отправлена в WhatsApp!</h3>
+      <p class="text-slate-500 text-sm max-w-md mx-auto" data-i18n="calc.successText">Если чат не открылся автоматически — позвоните нам напрямую. Мы свяжемся с вами в течение 5 минут.</p>
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button type="button" id="request-success-again" class="text-sm font-bold text-aqua-600 hover:text-aqua-700 transition-colors" data-i18n="calc.newRequest">Оставить ещё одну заявку</button>
+      </div>
+      <div class="mt-6 pt-6 border-t border-slate-100">
+        <p class="text-sm text-slate-500 mb-3" data-i18n="calc.reviewPrompt">Уже обращались к нам раньше? Будем благодарны за отзыв о нашей работе!</p>
+        <a href="https://g.page/r/REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK/review" target="_blank" class="inline-flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-navy-900 font-bold text-sm px-5 py-2.5 rounded-xl transition-colors">
+          <i data-lucide="star" class="w-4 h-4 text-signal-orange"></i>
+          <span data-i18n="calc.reviewBtn">Оставить отзыв в Google</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -747,8 +766,8 @@
     <p class="text-slate-500 text-sm mb-6" data-i18n="modal.text">Оставьте номер — перезвоним в течение 5 минут и вышлем мастера.</p>
 
     <form id="modal-form" class="flex flex-col gap-4">
-      <input type="text" required data-i18n-placeholder="modal.namePlaceholder" placeholder="Ваше имя" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition">
-      <input type="tel" required placeholder="+373 6_ ___ ___" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition">
+      <input id="mName" type="text" required data-i18n-placeholder="modal.namePlaceholder" placeholder="Ваше имя" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition">
+      <input id="mPhone" type="tel" required placeholder="+373 6_ ___ ___" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition">
       <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-signal-orange hover:bg-signal-orange-dark text-white font-bold py-3.5 rounded-xl transition-colors">
         <i data-lucide="phone-call" class="w-4 h-4"></i>
         <span data-i18n="modal.submit">Заказать звонок</span>
@@ -760,8 +779,15 @@
       <div class="w-16 h-16 rounded-full bg-signal-green/10 flex items-center justify-center mx-auto mb-4">
         <i data-lucide="check-circle" class="w-8 h-8 text-signal-green"></i>
       </div>
-      <h4 class="font-bold text-navy-900 text-lg mb-1" data-i18n="modal.successTitle">Заявка принята!</h4>
-      <p class="text-slate-500 text-sm" data-i18n="modal.successText">Мы перезвоним вам в ближайшие 5 минут.</p>
+      <h4 class="font-bold text-navy-900 text-lg mb-1" data-i18n="modal.successTitle">Заявка отправлена в WhatsApp!</h4>
+      <p class="text-slate-500 text-sm" data-i18n="modal.successText">Если чат не открылся — позвоните нам напрямую, мы уже ждём.</p>
+      <div class="mt-5 pt-5 border-t border-slate-100">
+        <p class="text-xs text-slate-500 mb-3" data-i18n="calc.reviewPrompt">Уже обращались к нам раньше? Будем благодарны за отзыв о нашей работе!</p>
+        <a href="https://g.page/r/REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK/review" target="_blank" class="inline-flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-navy-900 font-bold text-xs px-4 py-2 rounded-xl transition-colors">
+          <i data-lucide="star" class="w-3.5 h-3.5 text-signal-orange"></i>
+          <span data-i18n="calc.reviewBtn">Оставить отзыв в Google</span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
