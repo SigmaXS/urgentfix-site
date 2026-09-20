@@ -1,13 +1,13 @@
 {
-  "phone": "+373 78 293 919",
-  "phoneDigits": "37378293919",
-  "googleReviewUrl": "https://g.page/r/REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK/review",
-  "heroBadgeRu": "Скорая помощь для вашего дома",
   "heroBadgeRo": "Ajutor rapid pentru casa ta",
-  "heroSubtitleRu": "Остались без тепла? Мы уже в пути. Оставьте заявку — устраним поломку за один визит, с гарантией.",
+  "heroBadgeRu": "Скорая помощь для вашего дома",
+  "phone": "+373 78 293 919",
   "heroSubtitleRo": "Ați rămas fără căldură? Suntem deja pe drum. Trimiteți cererea — rezolvăm defecțiunea într-o singură vizită, cu garanție.",
-  "zoneTextRu": "Кишинёв и пригород (Кодру, Ставчены, Кожушна, Бубуечь)",
-  "zoneTextRo": "Chișinău și suburbii (Codru, Stăuceni, Cojușna, Bubuieci)",
-  "hoursTextRu": "Круглосуточно, без выходных",
-  "hoursTextRo": "Non-stop, fără zile libere"
+  "phoneDigits": "37378293919",
+  "heroSubtitleRu": "Остались без тепла? Мы уже в пути. Оставьте заявку — устраним поломку за один визит, с гарантией.",
+  "zoneTextRo": "Chișinău și suburbii (Codru, Stăuceni, Cricova, Bubuieci)",
+  "hoursTextRo": "Non-stop, fără zile libere",
+  "zoneTextRu": "Кишинёв и пригород (Кодру, Ставчены, Крикова, Бубуечь)",
+  "googleReviewUrl": "https://g.page/r/REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK/review",
+  "hoursTextRu": "Круглосуточно, без выходных"
 }
