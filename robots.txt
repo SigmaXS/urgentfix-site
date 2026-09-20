@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://REPLACE-WITH-YOUR-DOMAIN.md/sitemap.xml
+Sitemap: https://urgentfix.md/sitemap.xml
