@@ -346,6 +346,12 @@ function currentWaLabels() {
   return WA_LABELS[lang];
 }
 
+function reportWhatsAppConversion() {
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', { send_to: 'AW-18463953925/2bq0CKuMwYEdEIWopuRE' });
+  }
+}
+
 function initForms() {
   const requestForm = document.getElementById('request-form');
   const requestSuccess = document.getElementById('request-success');
@@ -367,6 +373,7 @@ function initForms() {
       if (desc) lines.push(`${L.desc} ${desc}`);
 
       window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+      reportWhatsAppConversion();
 
       requestForm.classList.add('hidden');
       requestSuccess.classList.remove('hidden');
@@ -396,6 +403,7 @@ function initForms() {
       lines.push(`${L.phone} ${phone || L.notSpecified}`);
 
       window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
+      reportWhatsAppConversion();
 
       modalForm.classList.add('hidden');
       modalSuccess.classList.remove('hidden');
