@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initStickyCta();
   initForms();
+  initCallTracking();
   initLang();
   loadContent();
 });
@@ -350,6 +351,22 @@ function reportWhatsAppConversion() {
   if (typeof gtag === 'function') {
     gtag('event', 'conversion', { send_to: 'AW-18463953925/2bq0CKuMwYEdEIWopuRE' });
   }
+}
+
+function reportCallConversion() {
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', { send_to: 'AW-18463953925/18oDCMHcuoEdEIWopuRE' });
+  }
+}
+
+// Считаем конверсией клик по любому tel: (кнопка звонка меняется через
+// applySettings(), поэтому слушаем клики на document, а не на конкретных ссылках)
+function initCallTracking() {
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a[href^="tel:"]')) {
+      reportCallConversion();
+    }
+  });
 }
 
 function initForms() {
