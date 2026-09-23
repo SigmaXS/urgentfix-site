@@ -439,7 +439,7 @@ const I18N = {
     'hero.title': 'Срочный ремонт <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua-400 to-aqua-500">газовых котлов</span> и сантехники в Кишинёве 24/7',
     'hero.subtitle': 'Остались без тепла? Мы уже в пути. Оставьте заявку — устраним поломку за один визит, с гарантией.',
     'hero.cta1': 'Вызвать мастера срочно',
-    'hero.cta2': 'Рассчитать стоимость',
+    'hero.cta2': 'Забронировать визит мастера',
     'hero.orWrite': 'или напишите:',
     'hero.trust1': 'Гарантия 12 мес.',
     'hero.trust2': 'Выезд 30–45 мин.',
@@ -570,7 +570,7 @@ const I18N = {
     'hero.title': 'Reparație urgentă a <span class="text-transparent bg-clip-text bg-gradient-to-r from-aqua-400 to-aqua-500">centralelor pe gaz</span> și instalații sanitare în Chișinău 24/7',
     'hero.subtitle': 'Ați rămas fără căldură? Suntem deja pe drum. Trimiteți cererea — rezolvăm defecțiunea într-o singură vizită, cu garanție.',
     'hero.cta1': 'Cheamă meșterul urgent',
-    'hero.cta2': 'Calculează costul',
+    'hero.cta2': 'Programează vizita meșterului',
     'hero.orWrite': 'sau scrieți-ne:',
     'hero.trust1': 'Garanție 12 luni',
     'hero.trust2': 'Sosire 30–45 min.',
@@ -692,7 +692,12 @@ const I18N = {
 };
 
 function detectLang() {
-  // Приоритет — язык, который пользователь выбрал вручную раньше
+  // Приоритет 1 — язык явно задан в адресе (urgentfix.md/ru или /ro),
+  // например для рекламных ссылок, нацеленных на конкретный язык
+  const pathLang = window.location.pathname.replace(/\/+$/, '').split('/').pop();
+  if (pathLang === 'ru' || pathLang === 'ro') return pathLang;
+
+  // Приоритет 2 — язык, который пользователь выбрал вручную раньше
   try {
     const saved = localStorage.getItem('ms_lang');
     if (saved === 'ru' || saved === 'ro') return saved;
@@ -700,13 +705,14 @@ function detectLang() {
     /* localStorage unavailable — ignore */
   }
 
-  // Иначе — по языку телефона/браузера: русский считаем "ru",
+  // Иначе — по языку телефона/браузера: русский и украинский считаем "ru"
+  // (отдельного украинского перевода нет, но им ближе русский, чем румынский),
   // всё остальное (ro, en и т.д.) по умолчанию открываем на румынском
   const browserLangs = navigator.languages && navigator.languages.length
     ? navigator.languages
     : [navigator.language || navigator.userLanguage || ''];
 
-  const isRussian = browserLangs.some((l) => (l || '').toLowerCase().startsWith('ru'));
+  const isRussian = browserLangs.some((l) => /^(ru|uk)/i.test(l || ''));
   return isRussian ? 'ru' : 'ro';
 }
 
