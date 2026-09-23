@@ -480,6 +480,7 @@
         <label class="block text-sm font-bold text-navy-900 mb-2" data-i18n="calc.serviceLabel">Тип услуги</label>
         <select id="fService" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition bg-white">
           <option data-i18n="calc.opt2">Ремонт / чистка котла</option>
+          <option data-i18n="calc.opt6">Профилактика / техобслуживание котла</option>
           <option data-i18n="calc.opt1">Аварийный выезд (протечка)</option>
           <option data-i18n="calc.opt3">Сантехнические работы</option>
           <option data-i18n="calc.opt4">Душевая кабина</option>
@@ -568,6 +569,13 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="text-center mt-10" data-animate>
+      <a href="https://g.page/r/REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK/review" target="_blank" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 border border-slate-200 text-navy-900 font-bold text-sm px-6 py-3.5 rounded-xl shadow-sm transition-colors">
+        <i data-lucide="star" class="w-4 h-4 text-signal-orange"></i>
+        <span data-i18n="calc.reviewBtn">Оставить отзыв в Google</span>
+      </a>
     </div>
   </div>
 </section>
@@ -674,13 +682,13 @@
 
 <!-- ======================= STICKY MOBILE CTA ======================= -->
 <div id="sticky-cta" class="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-white border-t border-slate-200 shadow-2xl px-4 py-3 flex gap-3 translate-y-full transition-transform duration-300">
-  <a href="tel:+37378293919" class="flex-1 inline-flex items-center justify-center gap-2 bg-navy-900 text-white font-bold text-sm py-3 rounded-xl">
+  <a href="tel:+37378293919" class="flex-1 inline-flex items-center justify-center gap-2 bg-signal-orange text-white font-bold text-sm py-3 rounded-xl">
     <i data-lucide="phone-call" class="w-4 h-4"></i>
-    <span data-i18n="sticky.call">Позвонить</span>
-  </a>
-  <a href="#call-modal" data-open-modal class="flex-1 inline-flex items-center justify-center gap-2 bg-signal-orange text-white font-bold text-sm py-3 rounded-xl">
-    <i data-lucide="siren" class="w-4 h-4"></i>
     <span data-i18n="sticky.emergency">Срочный вызов</span>
+  </a>
+  <a href="#calculator" class="flex-1 inline-flex items-center justify-center gap-2 bg-signal-green text-white font-bold text-sm py-3 rounded-xl">
+    <i data-lucide="calendar-check" class="w-4 h-4"></i>
+    <span data-i18n="sticky.book">Забронировать визит</span>
   </a>
 </div>
 
