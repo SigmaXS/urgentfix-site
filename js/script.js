@@ -337,19 +337,45 @@ function initStickyCta() {
 --------------------------------------------------------- */
 let WA_NUMBER = '37378293919';
 
-const WA_LABELS = {
-  ru: { title: 'Заявка с сайта UrgentFix:', name: 'Имя:', phone: 'Телефон:', service: 'Услуга:', desc: 'Проблема:', notSpecified: 'не указано' },
-  ro: { title: 'Cerere de pe site-ul UrgentFix:', name: 'Nume:', phone: 'Telefon:', service: 'Serviciu:', desc: 'Problema:', notSpecified: 'nespecificat' }
-};
-
-function currentWaLabels() {
-  const lang = document.documentElement.lang === 'ro' ? 'ro' : 'ru';
-  return WA_LABELS[lang];
+function reportLeadConversion(receipt) {
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+      send_to: 'AW-18463953925/2bq0CKuMwYEdEIWopuRE',
+      transaction_id: `urgentfix-${receipt}`
+    });
+  }
 }
 
-function reportWhatsAppConversion() {
-  if (typeof gtag === 'function') {
-    gtag('event', 'conversion', { send_to: 'AW-18463953925/2bq0CKuMwYEdEIWopuRE' });
+async function submitLead(form, success, data) {
+  if (form.dataset.submitting === 'true') return;
+  const error = form.querySelector('[data-form-error]');
+  const button = form.querySelector('button[type="submit"]');
+  const ro = document.documentElement.lang === 'ro';
+  error.hidden = true;
+  form.dataset.submitting = 'true';
+  button.disabled = true;
+  button.setAttribute('aria-busy', 'true');
+  try {
+    const response = await fetch('/.netlify/functions/submit-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...data, website: form.querySelector('[name="website"]').value })
+    });
+    const result = await response.json();
+    if (!response.ok || result.ok !== true || !result.receipt) throw new Error('Delivery failed');
+    form.classList.add('hidden');
+    success.classList.remove('hidden');
+    try { reportLeadConversion(result.receipt); } catch { /* Delivery already succeeded. */ }
+    initIcons();
+  } catch {
+    error.textContent = ro
+      ? 'Cererea nu a putut fi trimisă. Încercați din nou sau sunați-ne direct.'
+      : 'Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам напрямую.';
+    error.hidden = false;
+  } finally {
+    delete form.dataset.submitting;
+    button.disabled = false;
+    button.removeAttribute('aria-busy');
   }
 }
 
@@ -373,31 +399,21 @@ function initForms() {
   const requestForm = document.getElementById('request-form');
   const requestSuccess = document.getElementById('request-success');
   const requestAgainBtn = document.getElementById('request-success-again');
+  const modalForm = document.getElementById('modal-form');
+  const modalSuccess = document.getElementById('modal-success');
 
   if (requestForm && requestSuccess) {
     requestForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const L = currentWaLabels();
-      const name = document.getElementById('fName').value.trim();
-      const phone = document.getElementById('fPhone').value.trim();
-      const service = document.getElementById('fService').value;
-      const desc = document.getElementById('fDesc').value.trim();
-
-      const lines = [L.title];
-      lines.push(`${L.name} ${name || '—'}`);
-      lines.push(`${L.phone} ${phone || L.notSpecified}`);
-      lines.push(`${L.service} ${service}`);
-      if (desc) lines.push(`${L.desc} ${desc}`);
-
-      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
-      reportWhatsAppConversion();
-
-      requestForm.classList.add('hidden');
-      requestSuccess.classList.remove('hidden');
-      initIcons();
+      submitLead(requestForm, requestSuccess, {
+        form: 'request',
+        name: document.getElementById('fName').value.trim(),
+        phone: document.getElementById('fPhone').value.trim(),
+        service: document.getElementById('fService').value,
+        description: document.getElementById('fDesc').value.trim()
+      });
     });
   }
-
   if (requestAgainBtn && requestForm && requestSuccess) {
     requestAgainBtn.addEventListener('click', () => {
       requestForm.reset();
@@ -405,35 +421,22 @@ function initForms() {
       requestForm.classList.remove('hidden');
     });
   }
-
-  const modalForm = document.getElementById('modal-form');
-  const modalSuccess = document.getElementById('modal-success');
   if (modalForm && modalSuccess) {
     modalForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const L = currentWaLabels();
-      const name = document.getElementById('mName').value.trim();
-      const phone = document.getElementById('mPhone').value.trim();
-
-      const lines = [L.title];
-      lines.push(`${L.name} ${name || '—'}`);
-      lines.push(`${L.phone} ${phone || L.notSpecified}`);
-
-      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank');
-      reportWhatsAppConversion();
-
-      modalForm.classList.add('hidden');
-      modalSuccess.classList.remove('hidden');
-      initIcons();
+      submitLead(modalForm, modalSuccess, {
+        form: 'callback',
+        name: document.getElementById('mName').value.trim(),
+        phone: document.getElementById('mPhone').value.trim()
+      });
     });
   }
-
-  // Сбрасываем модалку к состоянию формы при каждом открытии
   document.querySelectorAll('[data-open-modal]').forEach((el) => {
     el.addEventListener('click', () => {
-      if (modalForm && modalSuccess) {
+      if (modalForm && modalSuccess && modalForm.dataset.submitting !== 'true') {
         modalForm.classList.remove('hidden');
         modalSuccess.classList.add('hidden');
+        modalForm.querySelector('[data-form-error]').hidden = true;
         modalForm.reset();
       }
     });
@@ -537,8 +540,8 @@ const I18N = {
     'calc.descPlaceholder': 'Например: котёл не держит давление, нужна диагностика...',
     'calc.submit': 'Отправить заявку',
     'calc.privacy': 'Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.',
-    'calc.successTitle': 'Заявка отправлена в WhatsApp!',
-    'calc.successText': 'Если чат не открылся автоматически — позвоните нам напрямую. Мы свяжемся с вами в течение 5 минут.',
+    'calc.successTitle': 'Заявка отправлена!',
+    'calc.successText': 'Мы получили вашу заявку и свяжемся с вами по указанному телефону.',
     'calc.newRequest': 'Оставить ещё одну заявку',
     'calc.reviewPrompt': 'Уже обращались к нам раньше? Будем благодарны за отзыв о нашей работе!',
     'calc.reviewBtn': 'Оставить отзыв в Google',
@@ -573,8 +576,8 @@ const I18N = {
     'modal.namePlaceholder': 'Ваше имя',
     'modal.submit': 'Заказать звонок',
     'modal.orCall': 'или звоните напрямую: <a href="tel:+37378293919" class="font-bold text-navy-900">+373 78 293 919</a>',
-    'modal.successTitle': 'Заявка отправлена в WhatsApp!',
-    'modal.successText': 'Если чат не открылся — позвоните нам напрямую, мы уже ждём.'
+    'modal.successTitle': 'Заявка отправлена!',
+    'modal.successText': 'Мы получили вашу заявку на обратный звонок.'
   },
   ro: {
     'logo.tag': 'Meșter bun la toate',
@@ -669,8 +672,8 @@ const I18N = {
     'calc.descPlaceholder': 'De exemplu: centrala nu ține presiunea, e nevoie de diagnosticare...',
     'calc.submit': 'Trimite cererea',
     'calc.privacy': 'Apăsând butonul, sunteți de acord cu prelucrarea datelor personale.',
-    'calc.successTitle': 'Cererea a fost trimisă pe WhatsApp!',
-    'calc.successText': 'Dacă chat-ul nu s-a deschis automat — sunați-ne direct. Vă contactăm în 5 minute.',
+    'calc.successTitle': 'Cererea a fost trimisă!',
+    'calc.successText': 'Am primit cererea și vă vom contacta la numărul indicat.',
     'calc.newRequest': 'Trimite încă o cerere',
     'calc.reviewPrompt': 'Ați mai apelat la noi înainte? Vă vom fi recunoscători pentru o recenzie!',
     'calc.reviewBtn': 'Lasă o recenzie pe Google',
@@ -705,8 +708,8 @@ const I18N = {
     'modal.namePlaceholder': 'Numele dvs.',
     'modal.submit': 'Comandă apel',
     'modal.orCall': 'sau sunați direct: <a href="tel:+37378293919" class="font-bold text-navy-900">+373 78 293 919</a>',
-    'modal.successTitle': 'Cererea a fost trimisă pe WhatsApp!',
-    'modal.successText': 'Dacă chat-ul nu s-a deschis — sunați-ne direct, vă așteptăm.'
+    'modal.successTitle': 'Cererea a fost trimisă!',
+    'modal.successText': 'Am primit cererea pentru un apel înapoi.'
   }
 };
 
