@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initStickyCta();
   initForms();
-  initCallTracking();
   initLang();
   loadContent();
 });
@@ -377,22 +376,6 @@ async function submitLead(form, success, data) {
     button.disabled = false;
     button.removeAttribute('aria-busy');
   }
-}
-
-function reportCallConversion() {
-  if (typeof gtag === 'function') {
-    gtag('event', 'conversion', { send_to: 'AW-18463953925/18oDCMHcuoEdEIWopuRE' });
-  }
-}
-
-// Считаем конверсией клик по любому tel: (кнопка звонка меняется через
-// applySettings(), поэтому слушаем клики на document, а не на конкретных ссылках)
-function initCallTracking() {
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('a[href^="tel:"]')) {
-      reportCallConversion();
-    }
-  });
 }
 
 function initForms() {
