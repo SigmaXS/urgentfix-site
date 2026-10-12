@@ -16,6 +16,7 @@ exports.handler = async (event) => {
       data.phone.replace(/\D/g, '').length < 8 || data.phone.replace(/\D/g, '').length > 15 ||
       !['request', 'callback'].includes(data.form) ||
       (data.service !== undefined && (typeof data.service !== 'string' || data.service.length > 150)) ||
+      (data.address !== undefined && (typeof data.address !== 'string' || data.address.length > 200)) ||
       (data.description !== undefined && (typeof data.description !== 'string' || data.description.length > 2000))) {
     return reply(400, { ok: false });
   }
@@ -26,6 +27,7 @@ exports.handler = async (event) => {
     `Тип: ${data.form === 'callback' ? 'Обратный звонок' : 'Заявка'}`,
     `Имя: ${data.name.trim()}`, `Телефон: ${data.phone.trim()}`];
   if (data.service) lines.push(`Услуга: ${data.service.trim()}`);
+  if (data.address) lines.push(`Адрес: ${data.address.trim()}`);
   if (data.description) lines.push(`Проблема: ${data.description.trim()}`);
   try {
     const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

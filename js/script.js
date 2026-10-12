@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyCta();
   initForms();
   initLang();
+  initCookieBanner();
   loadContent();
 });
 
@@ -378,6 +379,74 @@ async function submitLead(form, success, data) {
   }
 }
 
+function initCookieBanner() {
+  const banner = document.getElementById('cookie-banner');
+  const accept = document.getElementById('cookie-accept');
+  if (!banner || !accept) return;
+  let accepted = false;
+  try { accepted = localStorage.getItem('ms_cookie_accepted') === 'true'; } catch { /* localStorage unavailable */ }
+  if (accepted) return;
+  banner.classList.remove('hidden');
+  banner.classList.add('flex');
+  accept.addEventListener('click', () => {
+    banner.classList.add('hidden');
+    banner.classList.remove('flex');
+    try { localStorage.setItem('ms_cookie_accepted', 'true'); } catch { /* localStorage unavailable */ }
+  });
+}
+
+function initAddressAuto() {
+  const button = document.getElementById('fAddressAuto');
+  const input = document.getElementById('fAddress');
+  const error = document.getElementById('fAddressError');
+  if (!button || !input) return;
+
+  const dict = () => I18N[document.documentElement.lang === 'ro' ? 'ro' : 'ru'];
+  const label = button.querySelector('span');
+  const defaultLabel = label.textContent;
+
+  button.addEventListener('click', async () => {
+    error.hidden = true;
+    if (!navigator.geolocation) {
+      error.hidden = false;
+      return;
+    }
+    button.disabled = true;
+    label.textContent = dict()['calc.addressAutoBusy'];
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        const coordsText = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+        try {
+          const lang = document.documentElement.lang === 'ro' ? 'ro' : 'ru';
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&accept-language=${lang}`, {
+            signal: AbortSignal.timeout(6000)
+          });
+          const data = await res.json();
+          const a = data.address || {};
+          const street = [a.road, a.house_number].filter(Boolean).join(' ');
+          const city = a.city || a.town || a.village;
+          const built = [street, city].filter(Boolean).join(', ');
+          input.value = built || data.display_name || coordsText;
+        } catch {
+          // Геокодер недоступен — координаты всё ещё можно найти на карте вручную.
+          input.value = coordsText;
+        } finally {
+          button.disabled = false;
+          label.textContent = defaultLabel;
+        }
+      },
+      () => {
+        button.disabled = false;
+        label.textContent = defaultLabel;
+        error.hidden = false;
+      },
+      { timeout: 10000, enableHighAccuracy: true }
+    );
+  });
+}
+
 function initForms() {
   const requestForm = document.getElementById('request-form');
   const requestSuccess = document.getElementById('request-success');
@@ -392,11 +461,13 @@ function initForms() {
         form: 'request',
         name: document.getElementById('fName').value.trim(),
         phone: document.getElementById('fPhone').value.trim(),
+        address: document.getElementById('fAddress').value.trim(),
         service: document.getElementById('fService').value,
         description: document.getElementById('fDesc').value.trim()
       });
     });
   }
+  initAddressAuto();
   if (requestAgainBtn && requestForm && requestSuccess) {
     requestAgainBtn.addEventListener('click', () => {
       requestForm.reset();
@@ -512,6 +583,11 @@ const I18N = {
     'calc.nameLabel': 'Ваше имя',
     'calc.namePlaceholder': 'Как к вам обращаться?',
     'calc.phoneLabel': 'Телефон',
+    'calc.addressLabel': 'Адрес',
+    'calc.addressPlaceholder': 'Куда приехать мастеру?',
+    'calc.addressAuto': 'Определить автоматически',
+    'calc.addressAutoBusy': 'Определяем...',
+    'calc.addressAutoError': 'Не удалось определить адрес, введите вручную',
     'calc.serviceLabel': 'Тип услуги',
     'calc.opt1': 'Аварийный выезд (протечка)',
     'calc.opt2': 'Ремонт / чистка котла',
@@ -552,6 +628,8 @@ const I18N = {
     'footerCta.title': 'Труба потекла прямо сейчас?',
     'footerCta.text': 'Не ждите — звоните, мастер уже в пути через 30–45 минут.',
     'footer.copy': '© 2026 UrgentFix. Все права защищены.',
+    'cookie.text': 'Мы используем файлы cookie для аналитики и корректной работы сайта.',
+    'cookie.accept': 'Принять',
     'sticky.book': 'Забронировать',
     'sticky.emergency': 'Срочный вызов',
     'modal.title': 'Заказать обратный звонок',
@@ -644,6 +722,11 @@ const I18N = {
     'calc.nameLabel': 'Numele dvs.',
     'calc.namePlaceholder': 'Cum să vă adresăm?',
     'calc.phoneLabel': 'Telefon',
+    'calc.addressLabel': 'Adresa',
+    'calc.addressPlaceholder': 'Unde trebuie să vină meșterul?',
+    'calc.addressAuto': 'Detectează automat',
+    'calc.addressAutoBusy': 'Se detectează...',
+    'calc.addressAutoError': 'Adresa nu a putut fi detectată, introduceți-o manual',
     'calc.serviceLabel': 'Tipul serviciului',
     'calc.opt1': 'Deplasare de urgență (scurgere)',
     'calc.opt2': 'Reparație / curățare centrală',
@@ -684,6 +767,8 @@ const I18N = {
     'footerCta.title': 'Vi s-a spart o țeavă chiar acum?',
     'footerCta.text': 'Nu așteptați — sunați, meșterul ajunge în 30–45 minute.',
     'footer.copy': '© 2026 UrgentFix. Toate drepturile rezervate.',
+    'cookie.text': 'Folosim cookie-uri pentru analiză și buna funcționare a site-ului.',
+    'cookie.accept': 'Accept',
     'sticky.book': 'Programează',
     'sticky.emergency': 'Apel urgent',
     'modal.title': 'Comandă un apel',
