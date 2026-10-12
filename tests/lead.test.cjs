@@ -24,6 +24,16 @@ test('server confirms delivery only after Telegram accepts the message', async (
     assert.equal((await handler({ ...event, body: '{' })).statusCode, 400);
     assert.equal((await handler({ ...event, body: JSON.stringify({ form: 'callback', name: 'Test', phone: '123' }) })).statusCode, 400);
     assert.equal((await handler({ ...event, body: JSON.stringify({ form: 'callback', name: 'Test', phone: '+37360000000', website: 'spam' }) })).statusCode, 400);
+    assert.equal((await handler({ ...event, body: JSON.stringify({ form: 'request', name: 'Test', phone: '+37360000000', address: 'x'.repeat(201) }) })).statusCode, 400);
+    global.fetch = async (url, options) => {
+      const message = JSON.parse(options.body);
+      assert.match(message.text, /Адрес: Strada Test 5, Chișinău/);
+      return { ok: true, json: async () => ({ ok: true, result: { message_id: 43 } }) };
+    };
+    assert.deepEqual(
+      JSON.parse((await handler({ ...event, body: JSON.stringify({ form: 'request', name: 'Test', phone: '+37360000000', address: 'Strada Test 5, Chișinău' }) })).body),
+      { ok: true, receipt: '43' }
+    );
     delete process.env.URGENTFIX_TELEGRAM_BOT_TOKEN;
     assert.equal((await handler(event)).statusCode, 503);
   } finally {

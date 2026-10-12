@@ -480,6 +480,17 @@
         <input id="fPhone" maxlength="30" minlength="8" pattern="[+0-9\s.\(\)\-]{8,30}" type="tel" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition" placeholder="+373 6_ ___ ___">
       </div>
       <div class="sm:col-span-2">
+        <div class="flex items-center justify-between mb-2">
+          <label class="block text-sm font-bold text-navy-900" data-i18n="calc.addressLabel">Адрес</label>
+          <button type="button" id="fAddressAuto" class="inline-flex items-center gap-1.5 text-xs font-bold text-aqua-600 hover:text-aqua-700 transition-colors">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+            <span data-i18n="calc.addressAuto">Определить автоматически</span>
+          </button>
+        </div>
+        <input id="fAddress" maxlength="200" type="text" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition" data-i18n-placeholder="calc.addressPlaceholder" placeholder="Куда приехать мастеру?">
+        <p id="fAddressError" hidden class="text-xs text-red-500 mt-1.5" data-i18n="calc.addressAutoError">Не удалось определить адрес, введите вручную</p>
+      </div>
+      <div class="sm:col-span-2">
         <label class="block text-sm font-bold text-navy-900 mb-2" data-i18n="calc.serviceLabel">Тип услуги</label>
         <select id="fService" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-aqua-500 focus:ring-2 focus:ring-aqua-100 outline-none transition bg-white">
           <option data-i18n="calc.opt2">Ремонт / чистка котла</option>
@@ -682,6 +693,14 @@
     </div>
   </div>
 </footer>
+
+<!-- ======================= COOKIE CONSENT ======================= -->
+<div id="cookie-banner" class="fixed inset-x-0 bottom-20 lg:bottom-4 z-50 hidden justify-center px-4">
+  <div class="bg-navy-950 text-white rounded-2xl shadow-2xl px-5 py-4 max-w-lg w-full flex flex-col sm:flex-row items-center gap-3">
+    <p class="text-sm text-slate-300 flex-1" data-i18n="cookie.text">Мы используем файлы cookie для аналитики и корректной работы сайта.</p>
+    <button id="cookie-accept" class="w-full sm:w-auto shrink-0 bg-signal-green hover:bg-signal-green-dark text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-colors" data-i18n="cookie.accept">Принять</button>
+  </div>
+</div>
 
 <!-- ======================= STICKY MOBILE CTA ======================= -->
 <div id="sticky-cta" class="fixed bottom-0 inset-x-0 z-40 lg:hidden bg-white border-t border-slate-200 shadow-2xl px-4 py-3 flex gap-3 translate-y-full transition-transform duration-300">
