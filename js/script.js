@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initStickyCta();
   initForms();
+  initAddressAutocomplete();
   initLang();
   initCookieBanner();
   loadContent();
@@ -444,6 +445,68 @@ function initAddressAuto() {
       },
       { timeout: 10000, enableHighAccuracy: true }
     );
+  });
+}
+
+function initAddressAutocomplete() {
+  const input = document.getElementById('fAddress');
+  const list = document.getElementById('fAddressSuggestions');
+  if (!input || !list) return;
+
+  let debounceTimer = null;
+  let abortController = null;
+
+  function hideList() {
+    list.classList.add('hidden');
+    list.innerHTML = '';
+  }
+
+  function renderSuggestions(items) {
+    list.innerHTML = '';
+    if (!items.length) {
+      hideList();
+      return;
+    }
+    items.forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item.display_name;
+      li.className = 'px-4 py-2.5 text-sm text-navy-900 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0';
+      li.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        input.value = item.display_name;
+        hideList();
+      });
+      list.appendChild(li);
+    });
+    list.classList.remove('hidden');
+  }
+
+  input.addEventListener('input', () => {
+    const query = input.value.trim();
+    clearTimeout(debounceTimer);
+    if (query.length < 3) {
+      hideList();
+      return;
+    }
+    debounceTimer = setTimeout(async () => {
+      if (abortController) abortController.abort();
+      abortController = new AbortController();
+      try {
+        const lang = document.documentElement.lang === 'ro' ? 'ro' : 'ru';
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&countrycodes=md&accept-language=${lang}&q=${encodeURIComponent(query)}`,
+          { signal: abortController.signal }
+        );
+        const data = await res.json();
+        renderSuggestions(Array.isArray(data) ? data : []);
+      } catch {
+        // Запрос отменён (новый ввод) или сервис недоступен — просто не показываем подсказки.
+      }
+    }, 350);
+  });
+
+  input.addEventListener('blur', () => {
+    setTimeout(hideList, 150);
   });
 }
 
