@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadContent() {
   try {
     const [settingsRes, reviewsRes] = await Promise.all([
-      fetch('content/settings.json', { cache: 'no-store' }),
-      fetch('content/reviews.json', { cache: 'no-store' })
+      fetch('/content/settings.json', { cache: 'no-store' }),
+      fetch('/content/reviews.json', { cache: 'no-store' })
     ]);
     if (settingsRes.ok) {
       const settings = await settingsRes.json();
