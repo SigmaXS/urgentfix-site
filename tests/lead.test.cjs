@@ -43,6 +43,29 @@ test('server confirms delivery only after Telegram accepts the message', async (
   }
 });
 
+test('contact conversions count only contact link clicks, including nested icons', () => {
+  const source = fs.readFileSync(require.resolve('../js/script.js'), 'utf8');
+  const events = [];
+  let onClick;
+  const context = vm.createContext({
+    document: { addEventListener(type, handler) { if (type === 'click') onClick = handler; } },
+    window: {}, console, gtag: (...args) => events.push(args)
+  });
+  vm.runInContext(source, context);
+  context.initContactConversions();
+  assert.equal(events.length, 0);
+  for (const href of ['tel:+37378293919', 'https://wa.me/37378293919', 'viber://chat?number=%2B37378293919', 'https://t.me/+37378293919']) {
+    onClick({ target: { closest: () => ({ getAttribute: () => href }) } });
+  }
+  assert.equal(events.length, 4);
+  assert.ok(events.every(event => event[2].send_to === 'AW-18463953925/18oDCMHcuoEdEIWopuRE'));
+  for (const href of ['#request', '/ro/', 'https://g.page/r/CXLsH_fV30fXEBM/review']) {
+    onClick({ target: { closest: () => ({ getAttribute: () => href }) } });
+  }
+  onClick({ target: { closest: () => null } });
+  assert.equal(events.length, 4);
+});
+
 test('form preserves inputs on failure, blocks duplicate submits and counts delivered leads', async () => {
   const source = fs.readFileSync(require.resolve('../js/script.js'), 'utf8');
   const events = [];

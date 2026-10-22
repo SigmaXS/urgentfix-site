@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initStickyCta();
   initForms();
+  initContactConversions();
   initAddressAutocomplete();
   initLang();
   initCookieBanner();
@@ -337,6 +338,21 @@ function initStickyCta() {
    Обработка форм (заявка + модалка)
 --------------------------------------------------------- */
 let WA_NUMBER = '37378293919';
+
+// A contact click is an intent to contact, not a confirmed call or message.
+function initContactConversions() {
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest?.('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href') || '';
+    if (!/^(tel:|https:\/\/wa\.me\/|viber:\/\/chat\?|https:\/\/t\.me\/\+)/i.test(href)) return;
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {
+        send_to: 'AW-18463953925/18oDCMHcuoEdEIWopuRE'
+      });
+    }
+  });
+}
 
 function reportLeadConversion(receipt) {
   if (typeof gtag === 'function') {
