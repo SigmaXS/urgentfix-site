@@ -354,8 +354,18 @@ function initContactConversions() {
   });
 }
 
-function reportLeadConversion(receipt) {
+function toE164(phone) {
+  let d = String(phone || '').replace(/\D/g, '');
+  if (d.startsWith('373')) return '+' + d;
+  if (d.startsWith('0') && d.length === 9) return '+373' + d.slice(1);
+  if (d.length === 8) return '+373' + d;
+  return '';
+}
+
+function reportLeadConversion(receipt, phone) {
   if (typeof gtag === 'function') {
+    const tel = toE164(phone);
+    if (tel) gtag('set', 'user_data', { phone_number: tel });
     gtag('event', 'conversion', {
       send_to: 'AW-18463953925/2bq0CKuMwYEdEIWopuRE',
       transaction_id: `urgentfix-${receipt}`
@@ -382,7 +392,7 @@ async function submitLead(form, success, data) {
     if (!response.ok || result.ok !== true || !result.receipt) throw new Error('Delivery failed');
     form.classList.add('hidden');
     success.classList.remove('hidden');
-    try { reportLeadConversion(result.receipt); } catch { /* Delivery already succeeded. */ }
+    try { reportLeadConversion(result.receipt, data.phone); } catch { /* Delivery already succeeded. */ }
     initIcons();
   } catch {
     error.textContent = ro

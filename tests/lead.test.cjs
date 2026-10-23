@@ -100,6 +100,9 @@ test('form preserves inputs on failure, blocks duplicate submits and counts deli
   finish({ ok: true, json: async () => ({ ok: true, receipt: '42' }) });
   await accepted;
   assert.equal(shown, true);
-  assert.equal(events.length, 1);
-  assert.equal(events[0][2].transaction_id, 'urgentfix-42');
+  assert.equal(events.length, 2);
+  assert.equal(events[0][0], 'set');
+  assert.equal(events[0][1], 'user_data');
+  assert.equal(events[0][2].phone_number, '+37360000000');
+  assert.equal(events[1][2].transaction_id, 'urgentfix-42');
 });
